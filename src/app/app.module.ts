@@ -1,16 +1,29 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { SignInComponent } from './sign-in/sign-in.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { ProfileComponent } from './profile/profile.component';
+import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
+// import awsconfig from '../aws-exports.js';
+// Amplify.configure(awsconfig);
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SignInComponent,
+    SignUpComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule,
+    FormsModule,
+    AmplifyAuthenticatorModule, 
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
