@@ -8,6 +8,11 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
+import { FileuploadComponent } from './fileupload/fileupload.component';
+import { HttpClientModule } from '@angular/common/http';
+//import {Http, Response, RequestOptions, Headers} from '@angular/common/http';
+//import { routing } from "./app-routing.module";
+//import {SndComingSoonPageComponent} from '.......';
 // import awsconfig from '../aws-exports.js';
 // Amplify.configure(awsconfig);
 @NgModule({
@@ -15,14 +20,18 @@ import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
     AppComponent,
     SignInComponent,
     SignUpComponent,
-    ProfileComponent
+    ProfileComponent,
+    FileuploadComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     FormsModule,
-    AmplifyAuthenticatorModule, 
+    AmplifyAuthenticatorModule,
+    HttpClientModule
+    //Http, Response, RequestOptions, Headers
+   // routing
     
   ],
   providers: [],

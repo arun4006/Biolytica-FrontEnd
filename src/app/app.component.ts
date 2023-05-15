@@ -8,7 +8,8 @@ import { CognitoService } from './cognito.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent  {
+  title = 'aws'
 
   isAuthenticated: boolean;
 
@@ -29,6 +30,11 @@ export class AppComponent implements OnInit {
     .then(() => {
       this.router.navigate(['/signIn']);
     });
+  }
+
+  public FileUpload():void{
+    this.router.navigate(['/fileupload']);
+
   }
 
 }

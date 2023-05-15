@@ -1,30 +1,38 @@
+//import { IUser } from './../cognito.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
+import {PayloadService} from '../payload.service'
 import { IUser, CognitoService } from '../cognito.service';
+import * as AWS from 'aws-sdk';
+//import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss'],
+  providers:[PayloadService]
 })
 export class SignUpComponent {
-
+  globalId :any;
   loading: boolean;
   isConfirm: boolean;
   user: IUser;
 
   constructor(private router: Router,
-              private cognitoService: CognitoService) {
+              private cognitoService: CognitoService, private payload:PayloadService) {
     this.loading = false;
     this.isConfirm = false;
     this.user = {} as IUser;
   }
 
   public signUp(): void {
+    console.log("Clicked")
     this.loading = true;
     this.cognitoService.signUp(this.user)
-    .then(() => {
+    .then((res) => {
+      console.log(res.userSub);
+      this.globalId = res.userSub;
+      
       this.loading = false;
       this.isConfirm = true;
     }).catch(() => {
@@ -34,12 +42,26 @@ export class SignUpComponent {
 
   public confirmSignUp(): void {
     this.loading = true;
-    this.cognitoService.confirmSignUp(this.user)
+    console.log(this.user);
+    let usersub = {usersub:this.globalId}
+    //console.log(this.globalId);
+    let email = {email:this.user.email}
+    let name = { name: this.user.name };
+    let locale = { locale: this.user.locale };
+    this.payload.sendPayload(name,locale,email,usersub).subscribe(
+      data => {
+        console.log(data,'Form create person')
+        return true;
+      })
+     this.cognitoService.confirmSignUp(this.user)
     .then(() => {
+      //console.log("At"+data);
       this.router.navigate(['/signIn']);
     }).catch(() => {
       this.loading = false;
     });
   }
-
 }
+
+
+

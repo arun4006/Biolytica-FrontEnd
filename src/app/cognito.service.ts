@@ -10,6 +10,8 @@ export interface IUser {
   showPassword: boolean;
   code: string;
   name: string;
+  locale: string;
+  UserSub : string;
 }
 
 @Injectable({
@@ -30,6 +32,10 @@ export class CognitoService {
   public signUp(user: IUser): Promise<any> {
     return Auth.signUp({
       username: user.email,
+      attributes:{
+        name: user.name,
+        locale: user.locale
+      },
       password: user.password,
     });
   }

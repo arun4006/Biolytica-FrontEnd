@@ -9,30 +9,29 @@ import { IUser, CognitoService } from '../cognito.service';
 })
 export class ProfileComponent {
 
-  // loading: boolean;
-  // user: IUser;
+  loading: boolean;
+  user: IUser;
 
-  // constructor(private cognitoService: CognitoService) {
-  //   this.loading = false;
-  //   this.user = {} as IUser;
-  // }
+  constructor(private cognitoService: CognitoService) {
+    this.loading = false;
+    this.user = {} as IUser;
+  }
 
-  // public ngOnInit(): void {
-  //   this.cognitoService.getUser()
-  //   .then((user: any) => {
-  //     this.user = user.attributes;
-  //   });
-  // }
+  public ngOnInit(): void {
+    this.cognitoService.getUser()
+    .then((user: any) => {
+      this.user = user.attributes;
+    });
+  }
 
-  //   public update(): void {
-  //   this.loading = true;
-
-  //   this.cognitoService.updateUser(this.user)
-  //   .then(() => {
-  //     this.loading = false;
-  //   }).catch(() => {
-  //     this.loading = false;
-  //   });
-  // }
+  public update(): void {
+    this.loading = true;
+    this.cognitoService.updateUser(this.user)
+    .then(() => {
+      this.loading = false;
+    }).catch(() => {
+      this.loading = false;
+    });
+  }
 
 }
