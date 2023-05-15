@@ -15,7 +15,7 @@ import { IUser } from './cognito.service';
  export class PayloadService {
   user:IUser
 
-   private API_URL = 'https://p6ud9y8gk1.execute-api.us-east-1.amazonaws.com/dev/payload/authenticate';
+   private API_URL = 'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/login';
 
    constructor(private http: HttpClient) { 
     this.user = {} as IUser;
@@ -32,8 +32,15 @@ import { IUser } from './cognito.service';
      //headers.append('Authorization', session.getIdToken().getJwtToken());
      let options = ({ headers: headers});
      let INFO =  Object.assign(name,locale,email,usersub);
-     console.log(INFO, 'info clicked')
      let body = JSON.stringify(INFO);
      return this.http.post(this.API_URL, body,options)//.map((res: Response) => res.json());
    }
+   sendToken(accessToken:any) {
+    let headers = new HttpHeaders({'Content-Type' : 'application/json'});
+    //headers.append('Authorization', session.getIdToken().getJwtToken());
+    let options = ({ headers: headers});
+    let INFO =  Object.assign(accessToken);
+    let body = JSON.stringify(INFO);
+    return this.http.post(this.API_URL, body,options)//.map((res: Response) => res.json());
+  }
  }

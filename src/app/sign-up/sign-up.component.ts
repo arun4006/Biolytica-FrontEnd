@@ -31,8 +31,7 @@ export class SignUpComponent {
     this.cognitoService.signUp(this.user)
     .then((res) => {
       console.log(res.userSub);
-      this.globalId = res.userSub;
-      
+      this.globalId = res.userSub;     
       this.loading = false;
       this.isConfirm = true;
     }).catch(() => {
@@ -44,18 +43,16 @@ export class SignUpComponent {
     this.loading = true;
     console.log(this.user);
     let usersub = {usersub:this.globalId}
-    //console.log(this.globalId);
     let email = {email:this.user.email}
     let name = { name: this.user.name };
     let locale = { locale: this.user.locale };
     this.payload.sendPayload(name,locale,email,usersub).subscribe(
       data => {
-        console.log(data,'Form create person')
+        //console.log(data,'Form create person')
         return true;
       })
      this.cognitoService.confirmSignUp(this.user)
     .then(() => {
-      //console.log("At"+data);
       this.router.navigate(['/signIn']);
     }).catch(() => {
       this.loading = false;
