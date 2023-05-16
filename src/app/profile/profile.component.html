@@ -20,11 +20,14 @@
         </div>
       </div> -->
       <div class="row">
-        <div class="col d-grid">
-          <button type="button" (click)="update()" class="btn btn-sm btn-dark" [disabled]="loading">
+        <div class="form-group">
+          <input type="file" id="file" (change)="handleFileInput($event)" accept="image/*" />
+          <button type="button" (click)="FileUpload()">Upload Image</button>
+
+          <!-- <button type="button" (click)="update()" class="btn btn-sm btn-dark" [disabled]="loading">
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
             Update
-          </button>
+          </button> -->
         </div>
       </div>
     </div>

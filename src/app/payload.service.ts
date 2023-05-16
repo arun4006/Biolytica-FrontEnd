@@ -15,7 +15,7 @@ import { IUser } from './cognito.service';
  export class PayloadService {
   user:IUser
 
-   private API_URL = 'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/login';
+   private API_URL = 'https://p6ud9y8gk1.execute-api.us-east-1.amazonaws.com/dev/payload/authenticate';
 
    constructor(private http: HttpClient) { 
     this.user = {} as IUser;
@@ -39,8 +39,22 @@ import { IUser } from './cognito.service';
     let headers = new HttpHeaders({'Content-Type' : 'application/json'});
     //headers.append('Authorization', session.getIdToken().getJwtToken());
     let options = ({ headers: headers});
-    let INFO =  Object.assign(accessToken);
-    let body = JSON.stringify(INFO);
-    return this.http.post(this.API_URL, body,options)//.map((res: Response) => res.json());
+    // let INFO =  Object.assign(accessToken);
+    // console.log(accessToken);
+    // let token = JSON.stringify(accessToken)
+
+    return this.http.post(this.API_URL, accessToken,options)//.map((res: Response) => res.json());
   }
+  postFile(fileToUpload: File){
+    const formData: FormData = new FormData();
+    let headers = new HttpHeaders({'Content-Type' : 'multipart/form-data'});
+    //headers.append('Authorization', session.getIdToken().getJwtToken());
+    let options = ({ headers: headers});
+    let INFO =  Object.assign(fileToUpload);
+    console.log(INFO,'From Post FIle')
+    formData.append('image', fileToUpload);
+    return this.http.post('https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/filesupload',INFO,options)
+      // .map(() => { return true; })
+      // .catch((e) => this.handleError(e));
+}
  }
