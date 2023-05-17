@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import {PayloadService} from '../payload.service'
-import { IUser, CognitoService } from '../cognito.service';
+import {PayloadService} from '../../services/payload.service'
+import { IUser, CognitoService } from '../../services/cognito.service';
 import {Amplify, Auth } from 'aws-amplify';
 @Component({
   selector: 'app-sign-in',
@@ -13,6 +13,7 @@ export class SignInComponent {
 
   loading: boolean;
   user: IUser;
+  //$scope.images = [];
 
   constructor(private router: Router,
               private cognitoService: CognitoService,private payload:PayloadService ) {
@@ -29,13 +30,14 @@ export class SignInComponent {
     .then((data) => {
     const accessToken = data.getAccessToken().getJwtToken();
     //console.log('Access Token:', accessToken);
-    this.payload.sendToken(accessToken).subscribe(
-      data => {
-        //console.log(data,'Form create person')
-        return true;
-      })
+    localStorage.setItem('AccessToken',accessToken );
+    //this.payload.sendToken(accessToken,)//.subscribe(
+      // data => {
+      //   //console.log(data,'Form create person')
+      //   return true;
+      // })
   })
-      this.router.navigate(['/profile']);
+    this.router.navigate(['/profile']);
     }).catch((error) => {
       this.loading = false;
       console.error('Error obtaining access token:', error);

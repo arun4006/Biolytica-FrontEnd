@@ -7,6 +7,9 @@
           <input type="email" id="email" name="email" #email="ngModel" [ngModel]="user.email" disabled class="form-control form-control-sm">
         </div>
       </div>
+      <!-- <div ng-repeat="image in images">
+        <img src="{{image.url}}" />
+      </div> -->
       <!-- <div class="row">
         <div class="col mb-2">
           <label for="name" class="form-label">Name:</label>
@@ -18,11 +21,11 @@
           <label for="location" class="form-label">Location</label>
           <input type="text" id="locale" name="locale" #name="ngModel" [(ngModel)]="user.locale" class="form-control form-control-sm">
         </div>
-      </div> -->
+      </div> (change)="handleFileInput($event)"-->
       <div class="row">
-        <div class="form-group">
-          <input type="file" id="file" (change)="handleFileInput($event)" accept="image/*" />
-          <button type="button" (click)="FileUpload()">Upload Image</button>
+        <div class="form-group" (click)="FileUpload($event)">
+          <input type="file" id="file"  accept="image/*" />
+          <button type="button" >Upload Image</button>
 
           <!-- <button type="button" (click)="update()" class="btn btn-sm btn-dark" [disabled]="loading">
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>

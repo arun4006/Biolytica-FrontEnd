@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import {Amplify, Auth } from 'aws-amplify';
 
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 
 export interface IUser {
   email: string;
@@ -12,7 +12,8 @@ export interface IUser {
   name: string;
   locale: string;
   UserSub : string;
-  file : File
+  //file : File;
+  
 }
 
 @Injectable({

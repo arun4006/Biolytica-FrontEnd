@@ -4,12 +4,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { ProfileComponent } from './profile/profile.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
-import { FileuploadComponent } from './fileupload/fileupload.component';
+import { FileuploadComponent } from './components/fileupload/fileupload.component';
 import { HttpClientModule } from '@angular/common/http';
+//
 //import {Http, Response, RequestOptions, Headers} from '@angular/common/http';
 //import { routing } from "./app-routing.module";
 //import {SndComingSoonPageComponent} from '.......';

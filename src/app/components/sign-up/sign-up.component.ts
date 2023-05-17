@@ -1,8 +1,8 @@
 //import { IUser } from './../cognito.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import {PayloadService} from '../payload.service'
-import { IUser, CognitoService } from '../cognito.service';
+import {PayloadService} from '../../services/payload.service'
+import { IUser, CognitoService } from '../../services/cognito.service';
 import * as AWS from 'aws-sdk';
 //import { Observable } from 'rxjs';
 

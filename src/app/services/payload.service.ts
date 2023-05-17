@@ -14,17 +14,13 @@ import { IUser } from './cognito.service';
 @Injectable()
  export class PayloadService {
   user:IUser
+  globalToken :any
 
-   private API_URL = 'https://p6ud9y8gk1.execute-api.us-east-1.amazonaws.com/dev/payload/authenticate';
+   private API_URL = 'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/login';
 
    constructor(private http: HttpClient) { 
     this.user = {} as IUser;
    }
-
-  //  this.authService.getAuthenticatedUser().getSession((err, session) => {
-  //   console.log(session);
-  //   let headers = new HttpHeaders();
-  //   headers.append('Authorization', session.getIdToken().getJwtToken());
 
 
   sendPayload(name:any, locale:any,email:any,usersub:any) {
@@ -35,25 +31,15 @@ import { IUser } from './cognito.service';
      let body = JSON.stringify(INFO);
      return this.http.post(this.API_URL, body,options)//.map((res: Response) => res.json());
    }
-   sendToken(accessToken:any) {
-    let headers = new HttpHeaders({'Content-Type' : 'application/json'});
-    //headers.append('Authorization', session.getIdToken().getJwtToken());
-    let options = ({ headers: headers});
-    // let INFO =  Object.assign(accessToken);
-    // console.log(accessToken);
-    // let token = JSON.stringify(accessToken)
 
-    return this.http.post(this.API_URL, accessToken,options)//.map((res: Response) => res.json());
-  }
-  postFile(fileToUpload: File){
+  postFile(fileToUpload: File ){
     const formData: FormData = new FormData();
-    let headers = new HttpHeaders({'Content-Type' : 'multipart/form-data'});
-    //headers.append('Authorization', session.getIdToken().getJwtToken());
+    let headers = new HttpHeaders({'Content-Type' : 'multipart/form-data', 'Authorization': 'Bearer  ' + localStorage.getItem('AccessToken')});
     let options = ({ headers: headers});
     let INFO =  Object.assign(fileToUpload);
     console.log(INFO,'From Post FIle')
-    formData.append('image', fileToUpload);
-    return this.http.post('https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/filesupload',INFO,options)
+    formData.append('file', fileToUpload);
+    return this.http.post('https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/fileupload',formData,options)
       // .map(() => { return true; })
       // .catch((e) => this.handleError(e));
 }
