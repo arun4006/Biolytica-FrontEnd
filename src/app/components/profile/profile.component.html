@@ -1,37 +1,26 @@
-<p>profile works!</p>
-<div class="row justify-content-center my-5">
-    <div class="col-4">
-      <div class="row">
-        <div class="col mb-2">
-          <label for="email" class="form-label">Email:</label>
-          <input type="email" id="email" name="email" #email="ngModel" [ngModel]="user.email" disabled class="form-control form-control-sm">
-        </div>
-      </div>
-      <!-- <div ng-repeat="image in images">
-        <img src="{{image.url}}" />
-      </div> -->
-      <!-- <div class="row">
-        <div class="col mb-2">
-          <label for="name" class="form-label">Name:</label>
-          <input type="text" id="name" name="name" #name="ngModel" [(ngModel)]="user.name" class="form-control form-control-sm">
-        </div>
-      </div>
-      <div class="row">
-        <div class="col mb-2">
-          <label for="location" class="form-label">Location</label>
-          <input type="text" id="locale" name="locale" #name="ngModel" [(ngModel)]="user.locale" class="form-control form-control-sm">
-        </div>
-      </div> (change)="handleFileInput($event)"-->
-      <div class="row">
-        <div class="form-group" (click)="FileUpload($event)">
-          <input type="file" id="file"  accept="image/*" />
-          <button type="button" >Upload Image</button>
 
-          <!-- <button type="button" (click)="update()" class="btn btn-sm btn-dark" [disabled]="loading">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
-            Update
-          </button> -->
-        </div>
-      </div>
+<div class="container">
+  <div class="card my-3 p-2">
+    <label
+      for="formFile"
+      class="form-label me-2 d-flex justify-content-center"
+      >Upload file
+    </label>
+    <div class="d-flex justify-content-center">
+      <input #fileInput
+        (change)="onFilechange($event)"
+        class="form-control w-50"
+        type="file"
+        id="formFile" 
+      />
+      <button (click)="upload()" type="button" class="btn btn-primary ms-2">
+        Upload
+      </button>
     </div>
+
+    <br />
   </div>
+</div>
+
+
+
