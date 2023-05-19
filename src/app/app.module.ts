@@ -10,12 +10,6 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 import { FileuploadComponent } from './components/fileupload/fileupload.component';
 import { HttpClientModule } from '@angular/common/http';
-//
-//import {Http, Response, RequestOptions, Headers} from '@angular/common/http';
-//import { routing } from "./app-routing.module";
-//import {SndComingSoonPageComponent} from '.......';
-// import awsconfig from '../aws-exports.js';
-// Amplify.configure(awsconfig);
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,9 +25,6 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     AmplifyAuthenticatorModule,
     HttpClientModule
-    //Http, Response, RequestOptions, Headers
-   // routing
-    
   ],
   providers: [],
   bootstrap: [AppComponent]

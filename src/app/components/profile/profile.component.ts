@@ -2,7 +2,7 @@ import { Component, OnInit,ViewChild,ElementRef } from '@angular/core';
 import {PayloadService} from '../../services/payload.service'
 import { IUser, CognitoService } from '../../services/cognito.service';
 import { Objects } from 'src/app/interface/Objects';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -15,42 +15,48 @@ export class ProfileComponent {
   user: IUser;
   objects:Objects[] | undefined; 
   file: any;
- 
-
-  //fileData :fil
-  //images =[];
-  
-
-  constructor(private cognitoService: CognitoService, private payload:PayloadService) {
+  thumbnail:string[]=[];
+  UserName:any;
+  UserLocation:any;
+  selectedImage: any;
+  constructor(private cognitoService: CognitoService, 
+              private payload:PayloadService,
+              private router: Router) {
     this.loading = false;
     this.user = {} as IUser;
-    //this.file = ;
-    
-
   }
 
   public ngOnInit(): void {
-    this.cognitoService.getUser()
+    if(! localStorage.getItem('AccessToken')){
+      alert("You are not authorized");
+      this.router.navigate(['/signIn']);
+    }else {
+     this.cognitoService.getUser()
     .then((user: any) => {
       this.user = user.attributes;
     });
-
-  //  this.onGetFilesByLocation();
+    //Get All Images From S3 Based On Location.
+    this.payload.getImagesByLocation().subscribe((baseImage:any)=>{
+      this.UserName = baseImage.body.user.signedUsername;
+      this.UserLocation = baseImage.body.user.userLocation;
+      for(let i=0;i<baseImage.body.files.length;i++){
+        this.thumbnail[i] = baseImage.body.files[i].imageurl;
+        
+      }
+    })
+    //Get All Images From S3
+    // this.payload.getImages().subscribe((baseImage:any)=>{
+    //   // this.UserName = baseImage.body.user.signedUsername;
+    //   // this.UserLocation = baseImage.body.user.userLocation;
+    //   console.log(baseImage)
+    //   for(let i=0;i<baseImage.body.length;i++){
+    //     this.thumbnail[i] = baseImage.body[i].url;
+    //   }
+    // })
+    }
   }
 
-  // onGetFilesByLocation() {
-  //   this.payload.getFileByuserLocation()
-  //   .subscribe({
-  //     next: (response) => { 
-  //      // this.users=response;
-  //       this.objects=response;
-  //       console.log(response);
-  //     },
-  //     error: (error: any) => console.log(error),
-  //     complete: () => console.log('Finally we get all users'),
-  //   }); 
-    
-  // }
+  
 
   onFilechange(event: any) {
     console.log(event.target.files[0])
@@ -76,50 +82,8 @@ export class ProfileComponent {
   clear(){
   
   }
+  toggleImage(image: any) {
+    this.selectedImage = image;
+  }
 }
-  
-
-
-  // handleFileInput(files: FileList) {
-  //     this.fileToUpload = files.item(0);
-
-  // public handleFileInput(event :any){
-  //   var file:File[] = event.target.files[0];
-  //   this.FileUpload(file);
-  //   this.payload.postFile(file).subscribe(
-  //     data => {
-  //       console.log(file,'Form fileUploadd')
-  //       return true;
-  //     })
-  //   console.log(file,'handleFileInput');
-
-
-  // }
-
- // FileUpload(event:any){
-    //console.log('hhh', event);
-  //  // var file:File = event.target.files;
-  //   this.FileUpload(file);
-   // console.log(event,'Fileupload');
-    
-    // this.payload.postFile(file).subscribe(
-    //   data => {
-    //     console.log(file,'Form fileUploadd')
-    //     return true;
-    //   })
- // }
-  
-  //   imageService.getImages('https://my-lambda-function.com/images').then(function(response) {
-  //   $scope.images = response.data;
-  // });
-  
-  
-    // this.loading = true;
-    // this.cognitoService.updateUser(this.user)
-    // .then(() => {
-    //   this.loading = false;
-    // }).catch(() => {
-    //   this.loading = false;
-    // });
-//}
 

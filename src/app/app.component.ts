@@ -21,20 +21,17 @@ export class AppComponent  {
   public ngOnInit(): void {
     this.cognitoService.isAuthenticated()
     .then((success: boolean) => {
-      this.isAuthenticated = success;
+      this.isAuthenticated = success;         
     });
   }
 
   public signOut(): void {
     this.cognitoService.signOut()
     .then(() => {
+      localStorage.removeItem('AccessToken')
+      this.isAuthenticated = false;
       this.router.navigate(['/signIn']);
     });
-  }
-
-  public FileUpload():void{
-    this.router.navigate(['/fileupload']);
-
   }
 
 }

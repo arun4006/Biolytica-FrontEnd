@@ -13,7 +13,6 @@ export class SignInComponent {
 
   loading: boolean;
   user: IUser;
-  //$scope.images = [];
 
   constructor(private router: Router,
               private cognitoService: CognitoService,private payload:PayloadService ) {
@@ -29,13 +28,8 @@ export class SignInComponent {
       Auth.currentSession()
     .then((data) => {
     const accessToken = data.getAccessToken().getJwtToken();
-    //console.log('Access Token:', accessToken);
     localStorage.setItem('AccessToken',accessToken );
-    //this.payload.sendToken(accessToken,)//.subscribe(
-      // data => {
-      //   //console.log(data,'Form create person')
-      //   return true;
-      // })
+
   })
     this.router.navigate(['/profile']);
     }).catch((error) => {

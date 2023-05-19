@@ -12,8 +12,6 @@ export interface IUser {
   name: string;
   locale: string;
   UserSub : string;
-  //file : File;
-  
 }
 
 @Injectable({
