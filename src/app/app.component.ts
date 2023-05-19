@@ -4,6 +4,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { CognitoService } from './services/cognito.service';
 import { PayloadService } from './services/payload.service';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,8 +12,12 @@ import { PayloadService } from './services/payload.service';
   providers:[ProfileComponent,PayloadService]
 })
 export class AppComponent  {
-  title = 'aws';
-
+  title = 'aws'
+  //currentuser:CurrentUser | undefined; 
+   currentUser:any = {
+    username: localStorage.getItem('signedUser'),
+    location: localStorage.getItem('location')    
+  };
 
   isAuthenticated: boolean;
 
@@ -21,14 +26,12 @@ export class AppComponent  {
               ) {
     this.isAuthenticated = false;
   }
-
+  
   public ngOnInit(): void {
     this.cognitoService.isAuthenticated()
     .then((success: boolean) => {
-      this.isAuthenticated = success; 
-              
+      this.isAuthenticated = success;         
     });
-  
   }
 
   
@@ -37,9 +40,12 @@ export class AppComponent  {
     this.cognitoService.signOut()
     .then(() => {
       localStorage.removeItem('AccessToken')
+      localStorage.removeItem('signedUser');
+      localStorage.removeItem('location');
       this.isAuthenticated = false;
       this.router.navigate(['/signIn']);
     });
   }
+
 
 }

@@ -25,8 +25,7 @@ const routes: Routes = [
   {
     path: '**',
     redirectTo: 'signIn',
-  },
-
+  }
 ];
 
 @NgModule({

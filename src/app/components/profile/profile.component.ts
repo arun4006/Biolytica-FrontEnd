@@ -41,17 +41,21 @@ export class ProfileComponent {
       this.getImagesByLocationFunction();
       localStorage.setItem('UserName',this.UserName)
     });
+
     //Get All Images From S3 Based On Location.
-    
-    //Get All Images From S3
-    // this.payload.getImages().subscribe((baseImage:any)=>{
-    //   // this.UserName = baseImage.body.user.signedUsername;
-    //   // this.UserLocation = baseImage.body.user.userLocation;
-    //   console.log(baseImage)
-    //   for(let i=0;i<baseImage.body.length;i++){
-    //     this.thumbnail[i] = baseImage.body[i].url;
-    //   }
-    // })
+    this.payload.getImagesByLocation().subscribe((baseImage:any)=>{
+      console.log(baseImage);
+      
+      this.UserName = baseImage.body.user.signedUsername;
+      this.UserLocation = baseImage.body.user.userLocation;
+      localStorage.setItem('signedUser',this.UserName);
+      localStorage.setItem('location',this.UserLocation);
+      for(let i=0;i<baseImage.body.files.length;i++){
+        this.thumbnail[i] = baseImage.body.files[i].imageurl;
+        
+      }
+    })
+  
     }
   }
 
@@ -75,6 +79,7 @@ export class ProfileComponent {
     
   }
   @ViewChild('fileInput', { static: false }) fileInput!: ElementRef<HTMLInputElement>;
+  
   upload() {
     
     console.log(this.file);
@@ -92,8 +97,6 @@ export class ProfileComponent {
 
   clear(){
   }
-  
-  //Image Enlarging 
   toggleImage(image: any) {
     this.selectedImage = image
     this.showModal = true;

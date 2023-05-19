@@ -14,11 +14,21 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/signIn" routerLinkActive="active" *ngIf="!isAuthenticated" >Sign in</a>
         </li>
-      
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/signOut" (click)="signOut()" *ngIf="isAuthenticated"></a>
-        </li>
+    
       </ul>
+
+      <ul class="nav navbar-nav ms-auto" *ngIf="isAuthenticated">
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="bi bi-person-circle"></i> {{currentUser.username}}</a>
+            <div class="dropdown-menu dropdown-menu-end">
+                <a href="#" class="dropdown-item">Reports</a>
+                <a href="#" class="dropdown-item"><i class="bi-geo-alt"></i> {{currentUser.location}}</a>
+                <div class="dropdown-divider"></div>
+                <a routerLink="/signOut" (click)="signOut()" class="dropdown-item">Sign out</a>
+            </div>
+        </li>
+    </ul>
+
     </div>
   </div>
 </nav>
