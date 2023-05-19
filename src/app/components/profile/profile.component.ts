@@ -3,6 +3,7 @@ import {PayloadService} from '../../services/payload.service'
 import { IUser, CognitoService } from '../../services/cognito.service';
 import { Objects } from 'src/app/interface/Objects';
 import { Router } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -18,12 +19,15 @@ export class ProfileComponent {
   thumbnail:string[]=[];
   UserName:any;
   UserLocation:any;
-  selectedImage: any;
+  showModal: boolean;
+  selectedImage:any;
   constructor(private cognitoService: CognitoService, 
               private payload:PayloadService,
               private router: Router) {
     this.loading = false;
     this.user = {} as IUser;
+    this.showModal=false;
+
   }
 
   public ngOnInit(): void {
@@ -34,16 +38,11 @@ export class ProfileComponent {
      this.cognitoService.getUser()
     .then((user: any) => {
       this.user = user.attributes;
+      this.getImagesByLocationFunction();
+      localStorage.setItem('UserName',this.UserName)
     });
     //Get All Images From S3 Based On Location.
-    this.payload.getImagesByLocation().subscribe((baseImage:any)=>{
-      this.UserName = baseImage.body.user.signedUsername;
-      this.UserLocation = baseImage.body.user.userLocation;
-      for(let i=0;i<baseImage.body.files.length;i++){
-        this.thumbnail[i] = baseImage.body.files[i].imageurl;
-        
-      }
-    })
+    
     //Get All Images From S3
     // this.payload.getImages().subscribe((baseImage:any)=>{
     //   // this.UserName = baseImage.body.user.signedUsername;
@@ -54,6 +53,18 @@ export class ProfileComponent {
     //   }
     // })
     }
+  }
+
+  getImagesByLocationFunction(){
+    this.payload.getImagesByLocation().subscribe((baseImage:any)=>{
+      this.UserName = baseImage.body.user.signedUsername;
+      this.UserLocation = baseImage.body.user.userLocation;
+      for(let i=0;i<baseImage.body.files.length;i++){
+        this.thumbnail[i] = baseImage.body.files[i].imageurl;
+        
+      }
+    })
+    
   }
 
   
@@ -69,9 +80,9 @@ export class ProfileComponent {
     console.log(this.file);
     if (this.file) {
       this.payload.uploadnewfile(this.file).subscribe(resp => {            
-        alert("file Uploaded");   
-        this.file = null; // Reset the value of the file variable
-        //document.getElementById('formFile').value = '';
+        //alert("file Uploaded"); 
+        this.getImagesByLocationFunction();  
+        this.file = null; 
         this.fileInput.nativeElement.value = this.file;    
       })
     } else {
@@ -80,10 +91,15 @@ export class ProfileComponent {
   }
 
   clear(){
-  
   }
+  
+  //Image Enlarging 
   toggleImage(image: any) {
-    this.selectedImage = image;
+    this.selectedImage = image
+    this.showModal = true;
+  }
+  Close(){
+    this.showModal = false;
   }
 }
 

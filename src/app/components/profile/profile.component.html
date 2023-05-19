@@ -1,10 +1,17 @@
-<h1>Welcome, {{ UserName}} From {{UserLocation}}</h1>
+<div id="navbarContent" class="collapse navbar-collapse">
+  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="" routerLinkActive="active"  >{{ UserName}}</a>
+      <h1>khbsfbv</h1>
+    </li>
+  </ul>
+</div>
 <div class="container">
   <div class="card my-3 p-2">
     <label
       for="formFile"
       class="form-label me-2 d-flex justify-content-center"
-      >Upload file
+      >Upload File
     </label>
     <div class="d-flex justify-content-center">
       <input #fileInput
@@ -25,26 +32,27 @@
 <div class="container">
   <div class="row">
     <div class="col-md-3 col-12"   *ngFor="let image of thumbnail" >
-      <img class="img-fluid rounded" [src]="image" width="300%" height="100%"  (click)="toggleImage(image)" alt="Image">
+      <img class="img-fluid rounded img mt-5" [src]="image"   (click)="toggleImage(image)" alt="Image">
     </div>
   </div>
 </div>
 
-<div class="modal" [ngClass]="{'d-block': selectedImage}" tabindex="-1" role="dialog">
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title">{{ selectedImage?.name }}</h5>
-      <button type="button" class="close" (click)="toggleImage(null)">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <img [src]="selectedImage?.url" class="img-fluid">
+
+<div [style.display]="showModal ? 'block' : 'none'"  class="modal" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Image preview</h4>
+      </div>
+      <div class="modal-body">
+        <img [src]="selectedImage" id="imagepreview" style="width: 425px; height: 425px;" >
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="Close()" data-dismiss="modal" >Close</button>
+      </div>
     </div>
   </div>
-</div>
-</div>
+  </div>
 
 
 

@@ -1,12 +1,6 @@
 import { Auth } from 'aws-amplify';
-//import { RequestOptions } from '@angular/http';
-//import { Http } from '@angular/http';
 import { Injectable, Input } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-//import {Headers} from '@angular/common/http'
-//import 'rxjs/add/operator/map';
-//import 'rxjs/add/operator/do';
-//import { map } from "rxjs/operators";
 import { Observable, tap } from 'rxjs';
 import './cognito.service';
 import { IUser } from './cognito.service';
@@ -42,16 +36,16 @@ import { Objects } from '../interface/Objects';
     return this.http.get('https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/getfilesbylocation',{headers})
   }
 
-uploadnewfile(file: File) {
-  let formParams = new FormData();
-  let token=localStorage.getItem('AccessToken');
-  const myHeaders = new HttpHeaders()
-   .append('Authorization',`Bearer ${token}`);
-  formParams.append('file',file);
-  return this.http.post('https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/fileupload', formParams,{
-    headers:myHeaders
-})
-}  
+  uploadnewfile(file: File) {
+    let formParams = new FormData();
+    let token=localStorage.getItem('AccessToken');
+    const myHeaders = new HttpHeaders()
+    .append('Authorization',`Bearer ${token}`);
+    formParams.append('file',file);
+    return this.http.post('https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/fileupload', formParams,{
+      headers:myHeaders
+  })
+  }  
 
 
  }
