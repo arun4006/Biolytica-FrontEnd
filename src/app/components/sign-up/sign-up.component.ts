@@ -36,7 +36,6 @@ export class SignUpComponent {
   ngOnInit(): void {
     this.payload.getStates().subscribe((event:any)=>{
       this.states = event.body;
-      console.log('from init',this.states);
     })
 
   }
