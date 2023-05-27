@@ -14,10 +14,29 @@
               <input type="text" id="name" name="name" #name="ngModel" [(ngModel)]="user.name" class="form-control form-control-sm">
             </div>
           </div>
+          
+          
           <div class="row">
             <div class="col mb-2">
-              <label for="location" class="form-label">Location</label>
-              <input type="text" id="locale" name="locale" #name="ngModel" [(ngModel)]="user.locale" class="form-control form-control-sm">
+              <form [formGroup]="myForm">
+                <label for="name" class="form-label"> State</label>
+                <select formControlName="state" class="form-control" [(ngModel)]="selectedStateId" (change)="onChangeDistrict()">
+                    <option value="">Select State...</option>
+                    <option *ngFor="let state of states" [value]="state.id">{{state.states}}</option>
+                  </select>
+              </form>
+            </div>
+          </div>
+              
+          <div class="row">
+            <div class="col mb-2">  
+              <form [formGroup]="myForm">
+                <label for="name" class="form-label"> District</label>
+                  <select formControlName="district" class="form-control">
+                    <option value="">Select District...</option>
+                    <option *ngFor="let city of filteredDistricts" [value]="city.id">{{city.district}}</option>
+                  </select>
+              </form>
             </div>
           </div>
           <div class="row">

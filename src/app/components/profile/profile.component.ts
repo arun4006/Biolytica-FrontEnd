@@ -55,7 +55,6 @@ export class ProfileComponent {
         
       }
     })
-  
     }
   }
 
@@ -68,11 +67,7 @@ export class ProfileComponent {
         
       }
     })
-    
   }
-
-  
-
   onFilechange(event: any) {
     console.log(event.target.files[0])
     this.file =event.target.files[0];

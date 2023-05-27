@@ -25,6 +25,7 @@
     "aws-sdk": "^2.1371.0",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.5",
+    "ngx-google-places-autocomplete": "^2.0.5",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
   },
