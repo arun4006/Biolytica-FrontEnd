@@ -9,13 +9,20 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+import { UpdateUserComponent } from './components/update-user/update-user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignInComponent,
     SignUpComponent,
-    ProfileComponent
+    ProfileComponent,
+    UpdateUserComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +31,10 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     AmplifyAuthenticatorModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,MatSelectModule,MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

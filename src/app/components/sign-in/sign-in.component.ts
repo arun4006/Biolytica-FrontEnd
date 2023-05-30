@@ -23,7 +23,6 @@ export class SignInComponent {
   public signIn(): void {
     this.loading = true;
     this.cognitoService.signIn(this.user)
-    
     .then(() => {
       Auth.currentSession()
     .then((data) => {

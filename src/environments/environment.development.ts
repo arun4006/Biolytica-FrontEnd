@@ -11,6 +11,6 @@ export const environment = {
       FILE_UPLOAD_URL:'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/fileupload',
       GET_IMAGES_BY_LOCATION_URL:'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/getfilesbylocation',
       GET_ALL_STATES_URL:'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/getstates',
-      GET_ALL_DISTRICTS_URL:'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/getdistricts?id=31'
+      GET_ALL_DISTRICTS_URL:'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/getdistricts?id='
     }
 };

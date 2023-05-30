@@ -14,24 +14,24 @@ import { Objects } from '../interface/Objects';
   user:IUser
   globalToken :any
   file:any
+  profilePic:any
   private API_URL: string = environment.API_ROUTES.REGISTER_URL;
   private GET_URL: string = environment.API_ROUTES.GET_IMAGES_BY_LOCATION_URL;
   private FILE_URL: string = environment.API_ROUTES.FILE_UPLOAD_URL;
   private STATE_URL : string = environment.API_ROUTES.GET_ALL_STATES_URL;
   private DISTRCT_URL: string = environment.API_ROUTES.GET_ALL_DISTRICTS_URL;
-
    constructor(private http: HttpClient, ) { 
     this.user = {} as IUser;
    }
 
 
-  sendPayload(name:any, state:any,email:any,usersub:any,district:any) {
+  sendPayload(name:any,email:any,usersub:any,locale:any,bio:any,hobby:any,profilePic:File) {
+    
      let headers = new HttpHeaders({'Content-Type' : 'application/json'});
      let options = ({ headers: headers});
-     let INFO =  Object.assign(email,name,state,district,usersub);
+     let INFO =  Object.assign(email,name,locale,usersub,bio,hobby,profilePic);
      let body = JSON.stringify(INFO);
      console.log(body,'From payload');
-     
      return this.http.post(this.API_URL, body,options)
    }
 
@@ -48,7 +48,7 @@ import { Objects } from '../interface/Objects';
   }
 
   getDistricts(Id:number):Observable<any[]>{
-    return this.http.get<any[]>(this.DISTRCT_URL)
+    return this.http.get<any[]>(this.DISTRCT_URL+Id)
 
   }
 

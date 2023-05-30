@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {PayloadService} from '../../services/payload.service'
 import { IUser, CognitoService } from '../../services/cognito.service';
-import * as AWS from 'aws-sdk';
 import { FormGroup,FormBuilder,FormControl } from '@angular/forms';
 @Component({
   selector: 'app-sign-up',
@@ -21,6 +20,10 @@ export class SignUpComponent {
   selectedStateId: number;
   filteredDistricts: any=[];
   myForm: FormGroup;
+  items: string[] = ['Reading', 'Sport', 'Gym', 'Drawing'];
+  selectedItems:string[]=this.items;
+  file:string='';
+  selectedFile: File|null;
 
   constructor(private router: Router,
               private cognitoService: CognitoService, private payload:PayloadService,private formBuilder: FormBuilder) {
@@ -28,9 +31,12 @@ export class SignUpComponent {
     this.isConfirm = false;
     this.user = {} as IUser;
     this.selectedStateId = 0;
+    this.selectedFile = null
     this.myForm = this.formBuilder.group({
-      state: new FormControl(''),
-      district: new FormControl(''),
+      state: '',
+      district: '',
+      hobby:'',
+      bio:''
     });
   }
   ngOnInit(): void {
@@ -56,13 +62,15 @@ export class SignUpComponent {
 
   public confirmSignUp(): void {
     this.loading = true;
-    console.log(this.user);
     let usersub = {usersub:this.globalId}
     let email = {email:this.user.email}
     let name = { name: this.user.name };
-    let state = { state: this.user.State };
-    let district = {district: this.user.District}
-    this.payload.sendPayload(name,state,district,email,usersub).subscribe(
+    let bio = { bio: this.user.Bio };
+    let hobby = {hobby: this.user.Hobbies}
+    let locale = {locale: this.user.District}
+    let profilePic = {profilePic:this.selectedFile}
+   
+    this.payload.sendPayload(name,locale,email,usersub,bio,hobby,profilePic).subscribe(
       data => {
         return true;
       })
@@ -73,16 +81,33 @@ export class SignUpComponent {
       this.loading = false;
     });
   }
+
   onChangeDistrict():void {
+    this.filteredDistricts=[];
+    console.log(this.selectedStateId,'from district');
     this.payload.getDistricts(this.selectedStateId).subscribe((districts:any) => {
       this.districts = districts.body ;
-      this.filteredDistricts = districts.body;
-      this.filteredDistricts = this.districts.filter(
-            (district:any) => district.stateId == this.selectedStateId);
-      console.log(this.filteredDistricts,'From Onchngedistrict')
-    });
+      console.log(this.districts,'districts');
+      if(this.districts.length>0){
+        this.filteredDistricts = this.districts.filter(
+          (district:any) => district.stateId == this.selectedStateId);
+      }
+        });
   }
-}
+
+  onFileChange(event: any) {
+    if(event.target.files){
+      this.selectedFile=event.target.files
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload=(e:any)=>{
+        this.file=e.target.result;
+      }
+    } 
+    }
+  
+ }
+
 
 
 

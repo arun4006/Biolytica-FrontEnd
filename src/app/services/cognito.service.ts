@@ -14,6 +14,9 @@ export interface IUser {
   UserSub : string;
   State : string;
   District:string;
+  Bio:string;
+  Hobbies:string;
+  Profile:File |null;
 }
 
 @Injectable({
