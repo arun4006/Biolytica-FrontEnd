@@ -20,12 +20,13 @@ import { Objects } from '../interface/Objects';
   private FILE_URL: string = environment.API_ROUTES.FILE_UPLOAD_URL;
   private STATE_URL : string = environment.API_ROUTES.GET_ALL_STATES_URL;
   private DISTRCT_URL: string = environment.API_ROUTES.GET_ALL_DISTRICTS_URL;
+  private apiUrl = 'https://dummyjson.com/users';
    constructor(private http: HttpClient, ) { 
     this.user = {} as IUser;
    }
 
 
-  sendPayload(name:any,email:any,usersub:any,locale:any,bio:any,hobby:any,profilePic:File) {
+  sendPayload(name:any,email:any,usersub:any,locale:any,bio:any,hobby:any,profilePic:any) {
     
      let headers = new HttpHeaders({'Content-Type' : 'application/json'});
      let options = ({ headers: headers});
@@ -62,6 +63,10 @@ import { Objects } from '../interface/Objects';
       headers:myHeaders
   })
   }  
+
+  getData(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
+  }
 
 
  }

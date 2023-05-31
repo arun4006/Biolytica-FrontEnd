@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { UpdateUserComponent } from './components/update-user/update-user.component';
+import { AdminPageComponent } from './components/admin-page/admin-page.component';
 
 const routes: Routes = [
   {
@@ -23,9 +25,17 @@ const routes: Routes = [
     component: SignUpComponent,
   },
   {
+    path: 'update',
+    component: UpdateUserComponent,
+  },
+  {
+    path: 'admin',
+    component: AdminPageComponent,
+  },
+  {
     path: '**',
     redirectTo: 'signIn',
-  }
+  },
 ];
 
 @NgModule({

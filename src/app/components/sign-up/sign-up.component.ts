@@ -43,7 +43,6 @@ export class SignUpComponent {
     this.payload.getStates().subscribe((event:any)=>{
       this.states = event.body;
     })
-
   }
   
 

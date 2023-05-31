@@ -15,6 +15,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { UpdateUserComponent } from './components/update-user/update-user.component';
+import { AdminPageComponent } from './components/admin-page/admin-page.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { UpdateUserComponent } from './components/update-user/update-user.compon
     SignInComponent,
     SignUpComponent,
     ProfileComponent,
-    UpdateUserComponent
+    UpdateUserComponent,
+    AdminPageComponent
   ],
   imports: [
     BrowserModule,

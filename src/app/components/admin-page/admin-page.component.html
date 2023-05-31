@@ -1,0 +1,23 @@
+<p>admin-page works!</p>
+<table class="table table-bordered vertical-align: middle;">
+    <thead class="table-info">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>City</th>
+        <th>Posts</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of data">
+        <td>{{ row.firstName }}</td>
+        <td>{{ row.email }}</td>
+        <td>{{ row.password }}</td>
+        <td>{{ row.age }}</td>
+        <td>{{ row.demo }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  

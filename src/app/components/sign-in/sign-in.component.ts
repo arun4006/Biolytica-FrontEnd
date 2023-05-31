@@ -13,11 +13,13 @@ export class SignInComponent {
 
   loading: boolean;
   user: IUser;
+  isAdmin :boolean;
 
   constructor(private router: Router,
               private cognitoService: CognitoService,private payload:PayloadService ) {
     this.loading = false;
     this.user = {} as IUser;
+    this.isAdmin = false;
   }
 
   public signIn(): void {
@@ -30,7 +32,13 @@ export class SignInComponent {
     localStorage.setItem('AccessToken',accessToken );
 
   })
+    if(this.isAdmin)
+    {
+      this.router.navigate(['/admin']);
+
+    }else{
     this.router.navigate(['/profile']);
+    }
     }).catch((error) => {
       this.loading = false;
       console.error('Error obtaining access token:', error);
