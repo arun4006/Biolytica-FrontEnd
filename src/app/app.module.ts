@@ -14,6 +14,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { UpdateUserComponent } from './components/update-user/update-user.component';
 import { AdminPageComponent } from './components/admin-page/admin-page.component';
 
@@ -36,7 +37,8 @@ import { AdminPageComponent } from './components/admin-page/admin-page.component
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
-    MatInputModule,MatSelectModule,MatIconModule
+    MatInputModule,MatSelectModule,MatIconModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

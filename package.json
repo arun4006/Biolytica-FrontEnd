@@ -30,6 +30,7 @@
     "bootstrap-icons": "^1.10.5",
     "material-icons": "^1.13.7",
     "ngx-google-places-autocomplete": "^2.0.5",
+    "ngx-pagination": "^6.0.3",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
   },

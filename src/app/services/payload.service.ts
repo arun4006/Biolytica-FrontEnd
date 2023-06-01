@@ -64,8 +64,9 @@ import { Objects } from '../interface/Objects';
   })
   }  
 
-  getData(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  getData(page:number): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl+ '?page=' + page);
+    
   }
 
 

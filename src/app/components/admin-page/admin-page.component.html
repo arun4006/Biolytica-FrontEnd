@@ -1,4 +1,9 @@
 <p>admin-page works!</p>
+<div class="search-div">
+  <span><b>Search</b></span>
+  <input type="text" [(ngModel)]="searchValue" (input)="changeSearchValue($event)">
+  <i class="fa fa-search"></i>
+</div>
 <table class="table table-bordered vertical-align: middle;">
     <thead class="table-info">
       <tr>
@@ -6,11 +11,22 @@
         <th>Email</th>
         <th>City</th>
         <th>Posts</th>
-        <th>Action</th>
+        
+        <tr>
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let row" style="width:20%">
+            <button mat-icon-button color="primary" (click)="viewContact(row)" title="View Contact"><mat-icon>preview</mat-icon></button>
+            <button mat-icon-button color="primary" (click)="editContact(row)" title="Edit Contact"><mat-icon>edit</mat-icon></button>
+          </td>
+        <tr>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let row of data">
+    <tbody *ngFor="let row of data| paginate: {
+      itemsPerPage:7 ,
+      currentPage: pagination,
+      totalItems: allUsers
+    }">
+      <tr *ngIf="searchValue ===''|| row.firstName.toLowerCase().includes(searchValue)">
         <td>{{ row.firstName }}</td>
         <td>{{ row.email }}</td>
         <td>{{ row.password }}</td>
@@ -19,5 +35,10 @@
       </tr>
     </tbody>
   </table>
+  <div class="d-flex justify-content-center">
+    <pagination-controls
+      (pageChange)="renderPage($event)"
+    ></pagination-controls>
+  </div>
 
   

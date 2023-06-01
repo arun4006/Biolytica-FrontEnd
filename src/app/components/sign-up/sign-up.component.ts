@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {PayloadService} from '../../services/payload.service'
 import { IUser, CognitoService } from '../../services/cognito.service';
-import { FormGroup,FormBuilder,FormControl } from '@angular/forms';
+import { FormGroup,FormBuilder,FormControl, FormArray } from '@angular/forms';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -19,7 +19,8 @@ export class SignUpComponent {
   districts: any=[];
   selectedStateId: number;
   filteredDistricts: any=[];
-  myForm: FormGroup;
+  //myForm: FormGroup;
+  hobbies:FormArray
   items: string[] = ['Reading', 'Sport', 'Gym', 'Drawing'];
   selectedItems:string[]=this.items;
   file:string='';
@@ -32,12 +33,23 @@ export class SignUpComponent {
     this.user = {} as IUser;
     this.selectedStateId = 0;
     this.selectedFile = null
-    this.myForm = this.formBuilder.group({
-      state: '',
-      district: '',
-      hobby:'',
-      bio:''
-    });
+    // this.myForm = this.formBuilder.group({
+    //   state: '',
+    //   district: '',
+    //   hobby:'',
+    //   bio:''
+    // });
+    this.hobbies = this.formBuilder.array([
+      this.formBuilder.group({
+        label: ['Angular']
+      }),
+      this.formBuilder.group({
+        label: ['React']
+      }),
+      this.formBuilder.group({
+        label: ['Vue']
+      })
+    ]);
   }
   ngOnInit(): void {
     this.payload.getStates().subscribe((event:any)=>{
@@ -65,12 +77,14 @@ export class SignUpComponent {
     let email = {email:this.user.email}
     let name = { name: this.user.name };
     let bio = { bio: this.user.Bio };
-    let hobby = {hobby: this.user.Hobbies}
+    let hobby = {hobby: this.hobbies}
     let locale = {locale: this.user.District}
     let profilePic = {profilePic:this.selectedFile}
    
     this.payload.sendPayload(name,locale,email,usersub,bio,hobby,profilePic).subscribe(
       data => {
+        console.log(data,'overall');
+        
         return true;
       })
      this.cognitoService.confirmSignUp(this.user)
