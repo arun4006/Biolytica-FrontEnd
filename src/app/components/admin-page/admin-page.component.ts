@@ -19,7 +19,9 @@ export class AdminPageComponent {
   }
   
   getUsers(){
-    this.payload.getData(this.pagination).subscribe((response:any) => {
+    this.payload.getData().subscribe((response:any) => { //this.pagination
+      console.log(response);
+      
       this.data = response.users;
       this.allUsers=response.id;
     });

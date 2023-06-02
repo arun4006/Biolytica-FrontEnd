@@ -20,7 +20,7 @@ import { Objects } from '../interface/Objects';
   private FILE_URL: string = environment.API_ROUTES.FILE_UPLOAD_URL;
   private STATE_URL : string = environment.API_ROUTES.GET_ALL_STATES_URL;
   private DISTRCT_URL: string = environment.API_ROUTES.GET_ALL_DISTRICTS_URL;
-  private apiUrl = 'https://dummyjson.com/users';
+  private apiUrl = 'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/getuserbyadmin';
    constructor(private http: HttpClient, ) { 
     this.user = {} as IUser;
    }
@@ -64,8 +64,8 @@ import { Objects } from '../interface/Objects';
   })
   }  
 
-  getData(page:number): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl+ '?page=' + page);
+  getData(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl); // + '?page=' + page page:number
     
   }
 
