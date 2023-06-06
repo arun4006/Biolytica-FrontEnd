@@ -64,8 +64,10 @@ import { Objects } from '../interface/Objects';
   })
   }  
 
-  getData(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl); // + '?page=' + page page:number
+  getData(page:number): Observable<any[]> {
+    const LocalToken = localStorage.getItem('AccessToken')
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${LocalToken}`);
+    return this.http.get<any[]>(this.apiUrl+ '?page=' + page,{headers}); // + '?page=' + page page:number
     
   }
 

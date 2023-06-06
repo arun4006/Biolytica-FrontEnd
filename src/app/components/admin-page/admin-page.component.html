@@ -16,15 +16,15 @@
         </tr>
       </thead>
       <tbody *ngFor="let row of data| paginate: {
-        itemsPerPage:7 ,
+        itemsPerPage:5 ,
         currentPage: pagination,
         totalItems: allUsers
       }">
-        <tr *ngIf="searchValue ===''|| row.firstName.toLowerCase().includes(searchValue)">
-          <td>{{ row.firstName }}</td>
+        <tr *ngIf="searchValue ===''|| row.name.toLowerCase().includes(searchValue)||row.email.toLowerCase().includes(searchValue)">
+          <td>{{ row.name }}</td>
           <td>{{ row.email }}</td>
-          <td>{{ row.password }}</td>
-          <td>{{ row.age }}</td>
+          <td>{{ row.location }}</td>
+          <td>{{ row.num_posts }}</td>
           <td>
             <button class="btn btn-sm btn-warning">
               <i class="fa fa-edit"></i>Edit</button>

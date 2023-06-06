@@ -19,11 +19,10 @@ export class AdminPageComponent {
   }
   
   getUsers(){
-    this.payload.getData().subscribe((response:any) => { //this.pagination
+    this.payload.getData(this.pagination).subscribe((response:any) => { //this.pagination
       console.log(response);
-      
-      this.data = response.users;
-      this.allUsers=response.id;
+      this.data = response.body;
+      this.allUsers=response.body.id;
     });
   }
 
