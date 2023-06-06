@@ -89,9 +89,6 @@ export class ProfileComponent {
       alert("Please select a file first")
     }
   }
-
-  clear(){
-  }
   toggleImage(image: any) {
     this.selectedImage = image
     this.showModal = true;

@@ -26,11 +26,23 @@ import { Objects } from '../interface/Objects';
    }
 
 
-  sendPayload(name:any,email:any,usersub:any,locale:any,bio:any,hobby:any,profilePic:any) {
+  sendPayload(name:any,email:any,usersub:any,locale:any,bio:any,hobby:any) {
+    //console.log("File",profilePic) 
+    var formd = new FormData();
+    //if(profilePic){
+    formd.append('EMAIL',email)
+    formd.append('NAME',name)
+    formd.append('LOCALE', locale)
+    formd.append('BIO',bio)
+    formd.append('HOBBY',hobby)
+    //formd.append('PROFILEPIC',profilePic)
+    // }
+    console.log(formd,'mmm');
     
-     let headers = new HttpHeaders({'Content-Type' : 'application/json'});
+    let headers = new HttpHeaders({'Content-Type' : 'application/json'});
      let options = ({ headers: headers});
-     let INFO =  Object.assign(email,name,locale,usersub,bio,hobby,profilePic);
+     let INFO =  Object.assign(email,name,locale,usersub,bio,hobby);
+     //INFO={...INFO,file:{name:profilePic?.name}}
      let body = JSON.stringify(INFO);
      console.log(body,'From payload');
      return this.http.post(this.API_URL, body,options)
@@ -65,8 +77,8 @@ import { Objects } from '../interface/Objects';
   }  
 
   getData(page:number): Observable<any[]> {
-    const LocalToken = localStorage.getItem('AccessToken')
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${LocalToken}`);
+    const UserListToken = localStorage.getItem('AccessToken')
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${UserListToken}`);
     return this.http.get<any[]>(this.apiUrl+ '?page=' + page,{headers}); // + '?page=' + page page:number
     
   }

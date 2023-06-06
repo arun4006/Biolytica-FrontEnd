@@ -19,8 +19,8 @@ export class SignUpComponent {
   districts: any=[];
   selectedStateId: number;
   filteredDistricts: any=[];
-  //myForm: FormGroup;
-  hobbies:FormArray
+  myForm: FormGroup;
+  //hobbies:FormArray
   items: string[] = ['Reading', 'Sport', 'Gym', 'Drawing'];
   selectedItems:string[]=this.items;
   file:string='';
@@ -32,28 +32,33 @@ export class SignUpComponent {
     this.isConfirm = false;
     this.user = {} as IUser;
     this.selectedStateId = 0;
-    this.selectedFile = null
-    // this.myForm = this.formBuilder.group({
-    //   state: '',
-    //   district: '',
-    //   hobby:'',
-    //   bio:''
-    // });
-    this.hobbies = this.formBuilder.array([
-      this.formBuilder.group({
-        label: ['Angular']
-      }),
-      this.formBuilder.group({
-        label: ['React']
-      }),
-      this.formBuilder.group({
-        label: ['Vue']
-      })
-    ]);
+    this.selectedFile = null;
+    this.myForm = this.formBuilder.group({
+      profilePicture: null,
+      email: '',
+      name: '',
+      state:'',
+      district:'',
+      hobbies:'',
+      bio:''
+    });
+    // this.hobbies = this.formBuilder.array([
+    //   this.formBuilder.group({
+    //     label: ['Angular']
+    //   }),
+    //   this.formBuilder.group({
+    //     label: ['React']
+    //   }),
+    //   this.formBuilder.group({
+    //     label: ['Vue']
+    //   })
+    // ]);
   }
   ngOnInit(): void {
     this.payload.getStates().subscribe((event:any)=>{
       this.states = event.body;
+      console.log(this.states);
+      
     })
   }
   
@@ -77,14 +82,24 @@ export class SignUpComponent {
     let email = {email:this.user.email}
     let name = { name: this.user.name };
     let bio = { bio: this.user.Bio };
-    let hobby = {hobby: this.hobbies}
+    let hobby = {hobby: this.user.Hobbies}
     let locale = {locale: this.user.District}
     let profilePic = {profilePic:this.selectedFile}
-   
-    this.payload.sendPayload(name,locale,email,usersub,bio,hobby,profilePic).subscribe(
+  
+    // var options;
+    // if(this.selectedFile){
+    // var picdata = new FormData()
+
+    // picdata.append('file', picdata);
+    //  options = {content:picdata}
+    // }
+  
+    console.log(name,locale,email,usersub,hobby,bio,profilePic,'from signup.ts');
+    
+   //if(this.selectedFile) profilePic
+    this.payload.sendPayload(name,locale,email,usersub,hobby,bio).subscribe(
       data => {
-        console.log(data,'overall');
-        
+        console.log(data,'overall'); 
         return true;
       })
      this.cognitoService.confirmSignUp(this.user)
@@ -93,7 +108,9 @@ export class SignUpComponent {
     }).catch(() => {
       this.loading = false;
     });
+  //}
   }
+
 
   onChangeDistrict():void {
     this.filteredDistricts=[];
@@ -120,6 +137,7 @@ export class SignUpComponent {
     }
   
  }
+
 
 
 
