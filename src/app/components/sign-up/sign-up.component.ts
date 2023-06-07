@@ -24,7 +24,8 @@ export class SignUpComponent {
   items: string[] = ['Reading', 'Sport', 'Gym', 'Drawing'];
   selectedItems:string[]=this.items;
   file:string='';
-  selectedFile: File|null;
+  selectedFile:File|null;
+  files:any;
 
   constructor(private router: Router,
               private cognitoService: CognitoService, private payload:PayloadService,private formBuilder: FormBuilder) {
@@ -42,17 +43,7 @@ export class SignUpComponent {
       hobbies:'',
       bio:''
     });
-    // this.hobbies = this.formBuilder.array([
-    //   this.formBuilder.group({
-    //     label: ['Angular']
-    //   }),
-    //   this.formBuilder.group({
-    //     label: ['React']
-    //   }),
-    //   this.formBuilder.group({
-    //     label: ['Vue']
-    //   })
-    // ]);
+   
   }
   ngOnInit(): void {
     this.payload.getStates().subscribe((event:any)=>{
@@ -61,6 +52,19 @@ export class SignUpComponent {
       
     })
   }
+
+  onFilechange(event: any) {
+    if(event.target.files[0]){
+      this.files=event.target.files[0];
+      console.log("selected file"+this.files);
+      
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload=(e:any)=>{
+        this.file=e.target.result;
+      }
+    } 
+    }
   
 
   public signUp(): void {
@@ -78,26 +82,17 @@ export class SignUpComponent {
 
   public confirmSignUp(): void {
     this.loading = true;
-    let usersub = {usersub:this.globalId}
-    let email = {email:this.user.email}
-    let name = { name: this.user.name };
-    let bio = { bio: this.user.Bio };
-    let hobby = {hobby: this.user.Hobbies}
-    let locale = {locale: this.user.District}
-    let profilePic = {profilePic:this.selectedFile}
-  
-    // var options;
-    // if(this.selectedFile){
-    // var picdata = new FormData()
-
-    // picdata.append('file', picdata);
-    //  options = {content:picdata}
-    // }
-  
-    console.log(name,locale,email,usersub,hobby,bio,profilePic,'from signup.ts');
+    let usersub = '1234123412' //{usersub:this.globalId}
+    let email = this.user.email;
+    let name =  this.user.name;
+    let bio = this.user.Bio;
+    let hobby = this.user.Hobbies;
+    let city = this.user.District;
+    let profilePic = this.files;
     
-   //if(this.selectedFile) profilePic
-    this.payload.sendPayload(name,locale,email,usersub,hobby,bio).subscribe(
+  // console.log("selected file after button click"+this.files);
+    
+    this.payload.sendPayload(name,email,usersub,city,hobby,bio,profilePic).subscribe(
       data => {
         console.log(data,'overall'); 
         return true;
@@ -108,7 +103,7 @@ export class SignUpComponent {
     }).catch(() => {
       this.loading = false;
     });
-  //}
+  
   }
 
 
@@ -125,16 +120,8 @@ export class SignUpComponent {
         });
   }
 
-  onFileChange(event: any) {
-    if(event.target.files){
-      this.selectedFile=event.target.files
-      var reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onload=(e:any)=>{
-        this.file=e.target.result;
-      }
-    } 
-    }
+ 
+
   
  }
 

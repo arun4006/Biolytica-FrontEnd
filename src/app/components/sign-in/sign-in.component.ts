@@ -13,15 +13,15 @@ export class SignInComponent {
 
   loading: boolean;
   user: IUser;
-  isAdmin :boolean;
+  isAdmin :string;
 
   constructor(private router: Router,
               private cognitoService: CognitoService,private payload:PayloadService ) {
     this.loading = false;
     this.user = {} as IUser;
-    this.isAdmin = false;
+    this.isAdmin = 'false';
   }
-
+  
   public signIn(): void {
     this.loading = true;
     this.cognitoService.signIn(this.user)
@@ -30,8 +30,15 @@ export class SignInComponent {
     .then((data) => {
     const accessToken = data.getAccessToken().getJwtToken();
     localStorage.setItem('AccessToken',accessToken );
-
+    this.payload.isAdmin(accessToken).subscribe((res:any)=>{  
+      console.log("fff"+res.body);      
+     this.isAdmin='true'; //res.body;    
+    });
+    
   })
+    console.log("value"+this.isAdmin);
+    
+
     if(this.isAdmin)
     {
       this.router.navigate(['/admin']);

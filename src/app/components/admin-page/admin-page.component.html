@@ -1,6 +1,6 @@
 <p>admin-page works!</p>
 <div class="search-div">
-  <span><b>Search</b></span>
+  <span><b>Search </b></span>
   <input type="text" [(ngModel)]="searchValue" (input)="changeSearchValue($event)">
   <i class="fa fa-search"></i>
 </div>
@@ -26,10 +26,10 @@
           <td>{{ row.district }}</td>
           <td>{{ row.num_posts }}</td>
           <td>
-            <button class="btn btn-sm btn-warning">
+            <button class="btn btn-sm btn-warning" style="margin-right:0.5rem;">
               <i class="fa fa-edit"></i>Edit</button>
-              <button class="btn btn-sm btn-danger">
-                <i class="fa fa-remove"></i>Delete</button>
+             <button class="btn btn-sm btn-danger">
+                <i class="fa fa-remove"></i> Delete</button>
           </td>
           
         </tr>

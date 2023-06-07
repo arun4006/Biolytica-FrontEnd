@@ -5,14 +5,11 @@
   </div>
   <label for="avatar-input-file">
       <div class="icon-wrapper">
-          <input type="file" id="avatar-input-file" accept="image/*" (change)="onFileChange($event)" />
+          <input type="file" id="avatar-input-file" accept="image/*"  (change)="onFilechange($event)" />
           <mat-icon class="icon" fontIcon="edit"></mat-icon>
       </div>
   </label>
 </div>
-
-
-
 
 
 <div class=" form-group row justify-content-center mt-3">
@@ -105,7 +102,7 @@
             <div class="col d-grid">
               <button type="button" (click)="confirmSignUp()" class="btn btn-sm btn-success" [disabled]="loading">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
-                Sign up
+                Submit
               </button>
             </div>
           </div>
