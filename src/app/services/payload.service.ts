@@ -26,10 +26,9 @@ import { Objects } from '../interface/Objects';
     this.user = {} as IUser;
    }
 
-  sendPayload(name:any,email:any,usersub:any,city:any,hobby:any,bio:any,file: File) {
+  sendPayload(name:any,email:any,usersub:any,state:any,city:any,hobby:any,bio:any,file: File) {
     console.log("name"+name);
     console.log("hobby"+hobby);
-    
     let formParams = new FormData();
     formParams.append('file',file);
     formParams.append('name',name);
@@ -37,10 +36,9 @@ import { Objects } from '../interface/Objects';
     formParams.append('userId',usersub);
     formParams.append('hobbies',hobby);
     formParams.append('bio',bio);
-    formParams.append('districtId','chennai');
-    formParams.append('stateId','tn')
-        
-     return this.http.post(this.REGISTERAPI_URL, formParams)
+    formParams.append('districtId',city);
+    formParams.append('stateId',state)
+    return this.http.post(this.REGISTERAPI_URL, formParams)
    }
 
   

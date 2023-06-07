@@ -44,15 +44,13 @@ export class ProfileComponent {
 
     //Get All Images From S3 Based On Location.
     this.payload.getImagesByLocation().subscribe((baseImage:any)=>{
-      console.log(baseImage);
-      
-      this.UserName = baseImage.body.user.signedUsername;
-      this.UserLocation = baseImage.body.user.userLocation;
+      const {body:{user:{signedUsername,userLocation}}}=baseImage;
+      this.UserName = signedUsername;
+      this.UserLocation = userLocation;
       localStorage.setItem('signedUser',this.UserName);
       localStorage.setItem('location',this.UserLocation);
       for(let i=0;i<baseImage.body.files.length;i++){
         this.thumbnail[i] = baseImage.body.files[i].imageurl;
-        
       }
     })
     }
@@ -68,15 +66,14 @@ export class ProfileComponent {
       }
     })
   }
+  
   onFilechange(event: any) {
     console.log(event.target.files[0])
     this.file =event.target.files[0];
-    
   }
   @ViewChild('fileInput', { static: false }) fileInput!: ElementRef<HTMLInputElement>;
   
   upload() {
-    
     console.log(this.file);
     if (this.file) {
       this.payload.uploadnewfile(this.file).subscribe(resp => {            

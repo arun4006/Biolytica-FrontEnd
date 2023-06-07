@@ -19,11 +19,13 @@ export class AdminPageComponent {
   }
   
   getUsers(){
-    this.payload.getData(this.pagination).subscribe((response:any) => { //this.pagination
+    
+    this.payload.getData(this.pagination).subscribe((response:any) => {
       console.log(response);
       this.data = response.body;
       this.allUsers=response.body.id;
-    });
+    })
+    
   }
 
   searchText:EventEmitter<string>=new EventEmitter<string>();

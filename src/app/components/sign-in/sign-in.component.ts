@@ -13,13 +13,13 @@ export class SignInComponent {
 
   loading: boolean;
   user: IUser;
-  isAdmin :string;
+  isAdmin :boolean;
 
   constructor(private router: Router,
               private cognitoService: CognitoService,private payload:PayloadService ) {
     this.loading = false;
     this.user = {} as IUser;
-    this.isAdmin = 'false';
+    this.isAdmin = false;
   }
   
   public signIn(): void {
@@ -32,7 +32,7 @@ export class SignInComponent {
     localStorage.setItem('AccessToken',accessToken );
     this.payload.isAdmin(accessToken).subscribe((res:any)=>{  
       console.log("fff"+res.body);      
-     this.isAdmin='true'; //res.body;    
+     this.isAdmin=true; //res.body;    
     });
     
   })

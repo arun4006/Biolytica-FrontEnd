@@ -33,7 +33,7 @@
             </div>
           </div>
 
-          <div class="row class=form-Group">
+          <div class="row form-Group">
             <div class="col mb-2">
               <label for="password" class="form-label">Password</label>
               <div class="input-group input-group-sm">
@@ -52,7 +52,7 @@
           <div class="row form-group">
             <div class="col mb-2">
               <label for="name" class="form-label">State</label>
-              <mat-form-field [style.height.px]=70 [style.width.px]=405>
+              <mat-form-field [style.height.px]=70 [style.width.px]=405 >
                 <mat-label>Select State</mat-label>
                   <mat-select [(ngModel)]="selectedStateId" name="state" (selectionChange)="onChangeDistrict()">
                     <mat-option *ngFor="let state of states" [value]="state.id">
@@ -69,7 +69,7 @@
               <mat-form-field [style.height.px]=70 [style.width.px]=405>
                 <mat-label>Select City</mat-label>
                   <mat-select  [(ngModel)]="user.District" name="district">
-                    <mat-option *ngFor="let city of filteredDistricts" [value]="city.id">{{city.district}}
+                    <mat-option *ngFor="let city of filteredDistricts" [value]="city.district">{{city.district}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -91,9 +91,9 @@
             </div>
           </div>
 
-          <div class="row form-group">
-            <div class="col mb-2" >
-              <label for="bio" class="form-label" >Bio</label>
+          <div class="row mb-2 form-group">
+            <div class="col mb-3" >
+              <span><label for="bio" class="form-label" >Bio</label></span>
               <textarea id="bio" class="form-control" name="bio" [style.height.px]=105 [style.width.px]=405 [style.width.px]=405 [(ngModel)]="user.Bio"></textarea>
             </div>
           </div>

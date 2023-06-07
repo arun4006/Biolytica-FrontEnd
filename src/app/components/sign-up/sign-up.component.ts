@@ -56,8 +56,6 @@ export class SignUpComponent {
   onFilechange(event: any) {
     if(event.target.files[0]){
       this.files=event.target.files[0];
-      console.log("selected file"+this.files);
-      
       var reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
       reader.onload=(e:any)=>{
@@ -82,17 +80,23 @@ export class SignUpComponent {
 
   public confirmSignUp(): void {
     this.loading = true;
-    let usersub = '1234123412' //{usersub:this.globalId}
+    let usersub = this.globalId;
     let email = this.user.email;
     let name =  this.user.name;
     let bio = this.user.Bio;
     let hobby = this.user.Hobbies;
+    let stateString = this.selectedStateId;
+    let statename = this.states.find((state:any) => state.id == stateString);
+    let allState = statename.states.toString();
     let city = this.user.District;
     let profilePic = this.files;
     
-  // console.log("selected file after button click"+this.files);
+  console.log(name,email,usersub,allState,city,hobby,bio,profilePic,'from');
+  console.log("allState"+typeof allState);
+  console.log("allState"+typeof allState);
+  
     
-    this.payload.sendPayload(name,email,usersub,city,hobby,bio,profilePic).subscribe(
+    this.payload.sendPayload(name,email,usersub,allState,city,hobby,bio,profilePic).subscribe(
       data => {
         console.log(data,'overall'); 
         return true;
@@ -119,10 +123,6 @@ export class SignUpComponent {
       }
         });
   }
-
- 
-
-  
  }
 
 
