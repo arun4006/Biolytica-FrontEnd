@@ -15,37 +15,32 @@ import { Objects } from '../interface/Objects';
   globalToken :any
   file:any
   profilePic:any
-  private API_URL: string = environment.API_ROUTES.REGISTER_URL;
+  private REGISTERAPI_URL: string = environment.API_ROUTES.REGISTER_URL;
   private GET_URL: string = environment.API_ROUTES.GET_IMAGES_BY_LOCATION_URL;
   private FILE_URL: string = environment.API_ROUTES.FILE_UPLOAD_URL;
   private STATE_URL : string = environment.API_ROUTES.GET_ALL_STATES_URL;
   private DISTRCT_URL: string = environment.API_ROUTES.GET_ALL_DISTRICTS_URL;
+  private ISADMIN_URL:string=environment.API_ROUTES.ISADMIN_URL;
   private apiUrl = 'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/getuserbyadmin';
    constructor(private http: HttpClient, ) { 
     this.user = {} as IUser;
    }
 
-
-  sendPayload(name:any,email:any,usersub:any,locale:any,bio:any,hobby:any) {
-    //console.log("File",profilePic) 
-    var formd = new FormData();
-    //if(profilePic){
-    formd.append('EMAIL',email)
-    formd.append('NAME',name)
-    formd.append('LOCALE', locale)
-    formd.append('BIO',bio)
-    formd.append('HOBBY',hobby)
-    //formd.append('PROFILEPIC',profilePic)
-    // }
-    console.log(formd,'mmm');
+  sendPayload(name:any,email:any,usersub:any,city:any,hobby:any,bio:any,file: File) {
+    console.log("name"+name);
+    console.log("hobby"+hobby);
     
-    let headers = new HttpHeaders({'Content-Type' : 'application/json'});
-     let options = ({ headers: headers});
-     let INFO =  Object.assign(email,name,locale,usersub,bio,hobby);
-     //INFO={...INFO,file:{name:profilePic?.name}}
-     let body = JSON.stringify(INFO);
-     console.log(body,'From payload');
-     return this.http.post(this.API_URL, body,options)
+    let formParams = new FormData();
+    formParams.append('file',file);
+    formParams.append('name',name);
+    formParams.append('email', email);
+    formParams.append('userId',usersub);
+    formParams.append('hobbies',hobby);
+    formParams.append('bio',bio);
+    formParams.append('districtId','chennai');
+    formParams.append('stateId','tn')
+        
+     return this.http.post(this.REGISTERAPI_URL, formParams)
    }
 
   
@@ -77,11 +72,18 @@ import { Objects } from '../interface/Objects';
   }  
 
   getData(page:number): Observable<any[]> {
-    const UserListToken = localStorage.getItem('AccessToken')
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${UserListToken}`);
+    const accessToken = localStorage.getItem('AccessToken')
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${accessToken}`);
     return this.http.get<any[]>(this.apiUrl+ '?page=' + page,{headers}); // + '?page=' + page page:number
     
   }
 
-
- }
+  isAdmin(token:any){  
+    console.log("token"+token);      
+    const myHeaders = new HttpHeaders()
+    .append('Authorization',`Bearer ${token}`);
+    return this.http.get(this.ISADMIN_URL,{
+      headers:myHeaders
+  })
+}
+}
