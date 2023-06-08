@@ -22,6 +22,7 @@ import { Objects } from '../interface/Objects';
   private DISTRCT_URL: string = environment.API_ROUTES.GET_ALL_DISTRICTS_URL;
   private ISADMIN_URL:string=environment.API_ROUTES.ISADMIN_URL;
   private apiUrl = 'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/getuserbyadmin';
+  private EDIT_URL:string=environment.API_ROUTES.EDIT_FORM_DATA_URL;
    constructor(private http: HttpClient, ) { 
     this.user = {} as IUser;
    }
@@ -38,6 +39,7 @@ import { Objects } from '../interface/Objects';
     formParams.append('bio',bio);
     formParams.append('districtId',city);
     formParams.append('stateId',state)
+    console.log(formParams);
     return this.http.post(this.REGISTERAPI_URL, formParams)
    }
 
@@ -55,7 +57,19 @@ import { Objects } from '../interface/Objects';
 
   getDistricts(Id:number):Observable<any[]>{
     return this.http.get<any[]>(this.DISTRCT_URL+Id)
+  }
 
+  editUsersByAdmin(Id:number):Observable<any[]>{
+    const accessToken = localStorage.getItem('AccessToken')
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${accessToken}`);
+    return this.http.get<any[]>(this.EDIT_URL+Id,{headers})
+  }
+  updateUsersByAdmin(Id:number,name:any,allState:any,city:any,hobby:any,bio:any,profilePic:File):Observable<any[]>{
+    const accessToken = localStorage.getItem('AccessToken')
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${accessToken}`);
+    console.log(Id,name,allState,city,hobby,bio,profilePic,'putclient');
+    
+    return this.http.put<any[]>(this.EDIT_URL+Id,{headers})
   }
 
   uploadnewfile(file: File) {

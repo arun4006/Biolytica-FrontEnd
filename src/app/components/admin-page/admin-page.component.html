@@ -28,7 +28,7 @@
           <td>{{ row.district }}</td>
           <td>{{ row.num_posts }}</td>
           <td>
-            <button class="btn btn-sm btn-warning" style="margin-right:0.5rem;">
+            <button class="btn btn-sm btn-warning" (click)="editForm(row.id)" style="margin-right:0.5rem;">
               <i class="fa fa-edit"></i>Edit</button>
              <button class="btn btn-sm btn-danger">
                 <i class="fa fa-remove"></i> Delete</button>

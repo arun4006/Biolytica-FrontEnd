@@ -11,7 +11,6 @@ import { AppComponent } from 'src/app/app.component';
   providers: [PayloadService]
 })
 export class ProfileComponent {
-
   loading: boolean;
   user: IUser;
   objects:Objects[] | undefined; 

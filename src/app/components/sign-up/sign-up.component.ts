@@ -43,13 +43,11 @@ export class SignUpComponent {
       hobbies:'',
       bio:''
     });
-   
   }
   ngOnInit(): void {
     this.payload.getStates().subscribe((event:any)=>{
       this.states = event.body;
       console.log(this.states);
-      
     })
   }
 
