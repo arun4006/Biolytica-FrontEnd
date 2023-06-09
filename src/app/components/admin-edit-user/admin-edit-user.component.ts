@@ -32,7 +32,7 @@ this.user = {} as IUser;
 this.selectedStateId = 0;
 this.selectedFile = null;
 this.myForm = this.formBuilder.group({
-//profilePicture: null,
+profilePicture: null,
 email: new FormControl(''),
 name: new FormControl(''),
 stateew:new FormControl(''),
@@ -47,13 +47,11 @@ bio:new FormControl('')
       console.log(this.states);
     })
     this.UserId = this.routes.snapshot.params['Id']; 
-   this.payload.editUsersByAdmin(this.UserId).subscribe((data:any)=>{
+    this.payload.editUsersByAdmin(this.UserId).subscribe((data:any)=>{
     this.globalData=data;
     let statename = this.states.find((state:any) => state.states == this.globalData.body[0].state);
     this.selectedStateId = statename.id;
     this.onChangeDistrict()
-
-
     this.file=this.globalData.body[0].profilepic
     var gg = this.globalData.body[0].hobbies.split(',');
     this.myForm = this.formBuilder.group({
@@ -68,21 +66,33 @@ bio:new FormControl('')
   }
 
   adminEditUserForm(){
-    let name =  this.user.name;
-    let bio = this.user.Bio;
-    let hobby = this.user.Hobbies;
+    let name =  this.myForm.get('name')?.value;
+    let bio = this.myForm.get('bio')?.value;
+    //let usersub = 
+    let hobby = this.myForm.get('hobbies')?.value;
     let stateString = this.selectedStateId;
     let statename = this.states.find((state:any) => state.id == stateString);
     let allState = statename.states.toString();
-    let city = this.user.District;
+    let city = this.myForm.get('district')?.value;
     let profilePic = this.files;
-    console.log(city,'hbuhiuhuh');
+    console.log(bio,'hbuhiuhuh');
     this.payload.updateUsersByAdmin(this.UserId,name,allState,city,hobby,bio,profilePic).subscribe(
       data => {
         console.log(data,'overall'); 
         return true;
       })
   }
+
+  onFilechange(event: any) {
+    if(event.target.files[0]){
+      this.files=event.target.files[0];
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload=(e:any)=>{
+        this.file=e.target.result;
+      }
+    } 
+    }
 
   onChangeDistrict():void {
     this.filteredDistricts=[];

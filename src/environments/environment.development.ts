@@ -13,6 +13,8 @@ export const environment = {
       GET_ALL_STATES_URL:'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/getstates',
       GET_ALL_DISTRICTS_URL:'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/getdistricts?id=',
       ISADMIN_URL:'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/isadmin',
-      EDIT_FORM_DATA_URL:'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/user/',
+      GET_FORM_DATA_URL:'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/user/',
+      GET_ALL_USERS_URL:'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/getuserbyadmin',
+      UPDATE_FORM_DATA_URL:'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/user/edit/'
     }
 };
