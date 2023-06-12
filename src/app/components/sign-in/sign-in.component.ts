@@ -30,24 +30,18 @@ export class SignInComponent {
     .then((data) => {
     const accessToken = data.getAccessToken().getJwtToken();
     localStorage.setItem('AccessToken',accessToken );
-   // this.isAdmin=true;
-     this.payload.isAdmin(accessToken).subscribe((res:any)=>{  
-      console.log("admin"+"dfgh");      
-      this.isAdmin=true; //res.body;   
-      
-    
-  })
-    console.log("value"+this.isAdmin);
-    if(this.isAdmin)
-    {
-      this.router.navigate(['/admin']);
-
-    }else{
-    this.router.navigate(['/profile']);
-    } 
+    this.payload.isAdmin(accessToken).subscribe((res:any)=>{  
+      console.log("isAdmin value"+typeof JSON.parse(res.body));     
+      this.isAdmin=JSON.parse(res.body);     
+      if(this.isAdmin)
+      {
+        this.router.navigate(['/admin']); 
+      }else{
+        this.router.navigate(['/profile']);
+      }
     });
-
-    
+  
+  })    
     }).catch((error) => {
       this.loading = false;
       console.error('Error obtaining access token:', error);

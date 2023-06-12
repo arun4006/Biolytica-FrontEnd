@@ -15,6 +15,7 @@ export class AdminPageComponent {
   pagination: number = 1;
   selectedId:number=0;
   id:number=3;
+  currentUser:any;
 
   constructor(private router: Router,private payload: PayloadService) { }
 
@@ -25,9 +26,14 @@ export class AdminPageComponent {
   
   getUsers(){
     this.payload.getData(this.pagination).subscribe((response:any) => {
-      console.log(response);
-      this.data = response.body;
+      console.log("getusers:"+response.body.userList);
+      this.data = response.body.userList;
       this.allUsers=response.body.id;
+      this.currentUser=response.body.user;
+      localStorage.setItem('signedUser',this.currentUser.signedUsername);
+      localStorage.setItem('location',this.currentUser.userLocation);
+      localStorage.setItem('profilepic',this.currentUser.profilePic);
+      console.log(this.currentUser);
     })
   }
 
