@@ -12,6 +12,8 @@
           <th>Name</th>
           <th>Email</th>
           <th>City</th>
+          <th>Hobbies</th>
+          <th>Bio</th>
           <th>Posts</th>
           <th>Action</th>
         </tr>
@@ -26,11 +28,13 @@
           <td>{{ row.name }}</td>
           <td>{{ row.email }}</td>
           <td>{{ row.district }}</td>
-          <td>{{ row.num_posts }}</td>
+          <td>{{row.hobbies}}</td>
+          <td>{{row.bio}}</td>
+          <td>{{ row.num_posts}}</td>
           <td>
             <button class="btn btn-sm btn-warning" (click)="editForm(row.id)" style="margin-right:0.5rem;">
               <i class="fa fa-edit"></i>Edit</button>
-             <button class="btn btn-sm btn-danger">
+             <button class="btn btn-sm btn-danger" (click)="deleteUser(row.id)" style="margin-right:0.5rem;">
                 <i class="fa fa-remove"></i> Delete</button>
           </td>
           

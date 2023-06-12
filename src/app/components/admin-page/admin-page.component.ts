@@ -33,7 +33,7 @@ export class AdminPageComponent {
       localStorage.setItem('signedUser',this.currentUser.signedUsername);
       localStorage.setItem('location',this.currentUser.userLocation);
       localStorage.setItem('profilepic',this.currentUser.profilePic);
-      console.log(this.currentUser);
+      console.log(this.data);
     })
   }
 
@@ -62,13 +62,11 @@ export class AdminPageComponent {
   }
 
 
-  editContact(contact: any) {
-    let route = '/contacts/edit-contact';
-    //this.router.navigate([route], { queryParams: { id: contact.id } });
+  deleteUser(id:number) {
+    this.payload.deleteUserByAdmin(id).subscribe((res:any)=>{
+      console.log(id, 'deluser id');
+      console.log(res);
+    })
   }
 
-  viewContact(contact: any) {
-    let route = '/contacts/view-contact';
-    //this.router.navigate([route], { queryParams: { id: contact.id } });
-  }
 }

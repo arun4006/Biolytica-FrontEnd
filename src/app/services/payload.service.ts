@@ -24,6 +24,7 @@ import { Objects } from '../interface/Objects';
   private GET_ALL_USERS_URL :string=environment.API_ROUTES.GET_ALL_USERS_URL;
   private GET_FORM_URL:string=environment.API_ROUTES.GET_FORM_DATA_URL;
   private UPDATE_URL:string=environment.API_ROUTES.UPDATE_FORM_DATA_URL;
+  private DELETE_URL:string=environment.API_ROUTES.DELETE_URL;
    constructor(private http: HttpClient, ) { 
     this.user = {} as IUser;
    }
@@ -103,5 +104,13 @@ import { Objects } from '../interface/Objects';
     console.log("token" +token);      
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any[]>(this.ISADMIN_URL,{headers})
-}
+  }
+
+  deleteUserByAdmin(Id:number):Observable<any[]>{
+    console.log(Id,'Url');
+    
+    const accessToken = localStorage.getItem('AccessToken')
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${accessToken}`);
+    return this.http.delete<any[]>(this.DELETE_URL+Id,{headers})
+  }
 }

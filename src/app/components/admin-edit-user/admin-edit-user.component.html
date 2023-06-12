@@ -1,41 +1,47 @@
 <form [formGroup]="myForm">
-    <div class="avatar-container">
-        <div class="image-container" formControlName="profilePicture"
-        [ngStyle]="{backgroundImage: 'url(' + file + ')'}">
+      <div class="profileContainer">
+        <div class="avatar-container">
+          <div class="image-container" formControlName="profilePicture"
+          [ngStyle]="{backgroundImage: 'url(' + file + ')'}">
+          </div>
+          <label for="avatar-input-file">
+              <div class="icon-wrapper">
+                  <input type="file" id="avatar-input-file" accept="image/*"  (change)="onFilechange($event)" />
+                  <mat-icon class="icon" fontIcon="edit"></mat-icon>
+              </div>
+          </label>
         </div>
-        <label for="avatar-input-file">
-            <div class="icon-wrapper">
-                <input type="file" id="avatar-input-file" accept="image/*" (change)="onFilechange($event)"/>
-                <mat-icon class="icon" fontIcon="edit"></mat-icon>
-            </div>
-        </label>
-      </div>
+        </div>
       
       
-      <div class=" form-group row justify-content-center mt-3">
+        <div class=" form-group row justify-content-center mt-3">
           <div class="col-4">
             <div class="card">
               <div class="card-body">
-                <div class="row mb-2 form-group">
-                  <div class="col mb-3">
-                    <span><label for="name" class="form-label">Name</label></span>
-                    <input type="text"  id="name" name="name" formControlName="name" [(ngModel)]="user.name" class="form-control form-control-sm"> 
+                <div class="row">
+                  <div class="col">
+                    <mat-form-field appearance="outline" class="w-100" >
+                      <mat-label>Name</mat-label>
+                      <input matInput type="text" id="name" formControlName="name"  [(ngModel)]="user.name" >
+                    </mat-form-field>
                   </div>
                 </div>
-      
+
+
                 <div class="row">
-                  <div class="col mb-2">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" readonly id="email" name="email" formControlName="email"  class="form-control form-control-sm">
+                  <div class="col">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Email</mat-label>
+                      <input readonly matInput type="email" id="email"  formControlName="email" [(ngModel)]="user.email">
+                    </mat-form-field>
                   </div>
                 </div>
 
                 <div class="row form-group">
-                  <div class="col mb-2">
-                    <label for="name" class="form-label">State</label>
-                    <mat-form-field [style.height.px]=70 [style.width.px]=405 >
-                      <mat-label>Select State</mat-label>
-                        <mat-select [(ngModel)]="selectedStateId" formControlName="stateew" name="state" (selectionChange)="onChangeDistrict()">
+                  <div class="col">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>State</mat-label>
+                        <mat-select [(ngModel)]="selectedStateId" formControlName="stateew"  (selectionChange)="onChangeDistrict()">
                           <mat-option *ngFor="let state of states" [value]="state.id">
                             {{state.states}}
                         </mat-option>
@@ -43,46 +49,48 @@
                     </mat-form-field>
                   </div>
                 </div>
-                    
+      
+
+
                 <div class="row">
-                  <div class="col  mb-2">  
-                    <label for="name" class="form-label">City</label>
-                    <mat-form-field [style.height.px]=70 [style.width.px]=405>
-                      <mat-label>Select City</mat-label>
-                        <mat-select  [(ngModel)]="user.District" formControlName="district">
+                  <div class="col">              
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>City</mat-label>
+                        <mat-select  [(ngModel)]="user.District"  formControlName="district">
                           <mat-option *ngFor="let city of filteredDistricts" [value]="city.district">{{city.district}}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
                 </div>
-      
-                 <div class="row form-group">
-                  <div class="col  mb-2">  
-                    <label for="name" class="form-label">Hobbies</label>
-                    <mat-form-field [style.height.px]=70 [style.width.px]=405>
-                      <mat-label>Select...</mat-label>
-                        <mat-select multiple  formControlName="hobbies">
+
+                
+                <div class="row form-group">
+                  <div class="col">  
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Hobbies</mat-label>
+                        <mat-select multiple [(ngModel)]="user.Hobbies" formControlName="hobbies">
                           <mat-option *ngFor="let h of selectedItems" [value]="h">{{h}}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
                 </div>
-      
+
                 <div class="row mb-2 form-group">
-                  <div class="col mb-3" >
-                    <span><label for="bio" class="form-label" >Bio</label></span>
-                    <textarea id="bio" class="form-control" formControlName="bio" name="bio" [style.height.px]=105 [style.width.px]=405 [style.width.px]=405></textarea>
+                  <div class="col ">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Bio</mat-label>
+                      <textarea matInput id="bio" formControlName="bio"  [(ngModel)]="user.Bio"></textarea>
+                    </mat-form-field>
                   </div>
                 </div>
 
-      
                 <div class="row">
                   <div class="col d-grid">
                     <button type="button" (click)="adminEditUserForm()" class="btn btn-sm btn-success" [disabled]="loading">
                       <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
-                      Update User
+                      Update
                     </button>
                   </div>
                 </div>
