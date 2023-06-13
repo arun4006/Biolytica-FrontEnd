@@ -39,10 +39,10 @@ export class AppComponent  {
   public signOut(): void {
     this.cognitoService.signOut()
     .then(() => {
+      this.isAuthenticated = false;
       localStorage.removeItem('AccessToken')
       localStorage.removeItem('signedUser');
       localStorage.removeItem('location');
-      this.isAuthenticated = false;
       this.router.navigate(['/signIn']);
     });
   }
