@@ -46,7 +46,7 @@ bio:new FormControl('')
       this.states = event.body;
       console.log(this.states);
     })
-    this.UserId = this.routes.snapshot.params['Id']; 
+    this.UserId = this.routes.snapshot.paramMap.get('id'); //this.routes.snapshot.params['Id']; 
     this.payload.editUsersByAdmin(this.UserId).subscribe((data:any)=>{
     this.globalData=data;
     let statename = this.states.find((state:any) => state.states == this.globalData.body[0].state);
@@ -68,7 +68,6 @@ bio:new FormControl('')
   adminEditUserForm(){
     let name =  this.myForm.get('name')?.value;
     let bio = this.myForm.get('bio')?.value;
-    //let usersub = 
     let hobby = this.myForm.get('hobbies')?.value;
     let stateString = this.selectedStateId;
     let statename = this.states.find((state:any) => state.id == stateString);
@@ -81,6 +80,7 @@ bio:new FormControl('')
         console.log(data,'overall'); 
         return true;
       })
+      this.router.navigate(['/admin']);
   }
 
   onFilechange(event: any) {
