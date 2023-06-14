@@ -34,7 +34,7 @@ const routes: Routes = [
     component: AdminPageComponent,
   },
   {
-    path: 'editUser',
+    path: 'editUser/:id',
     component: AdminEditUserComponent,
   },
   {

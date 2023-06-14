@@ -66,7 +66,7 @@ import { Objects } from '../interface/Objects';
     const headers = new HttpHeaders().set('Authorization', `Bearer ${accessToken}`);
     return this.http.get<any[]>(this.GET_FORM_URL+Id,{headers})
   }
-  updateUsersByAdmin(Id:number,email:any,name:any,allState:any,city:any,hobby:any,bio:any,profilePic:File):Observable<any[]>{
+  updateUsersByAdmin(Id:number,name:any,allState:any,city:any,hobby:any,bio:any,profilePic:File):Observable<any[]>{
     let formParams = new FormData();
     formParams.append('file',profilePic);
     formParams.append('name',name);
@@ -74,7 +74,7 @@ import { Objects } from '../interface/Objects';
     formParams.append('bio',bio);
     formParams.append('district',city);
     formParams.append('state',allState);
-    formParams.append('email',email);
+
     
     formParams.forEach(element => {
       console.log(element);

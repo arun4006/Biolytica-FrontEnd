@@ -71,7 +71,7 @@ export class AdminPageComponent {
   editForm(id:number){
     this.selectedId=id;
     console.log(this.selectedId,'editForm');
-    this.router.navigate(['/editUser',{Id:id}]);
+    this.router.navigate(['/editUser',id]);
   }
 
 
