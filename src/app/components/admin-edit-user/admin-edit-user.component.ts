@@ -49,6 +49,8 @@ bio:new FormControl('')
     this.UserId = this.routes.snapshot.params['Id']; 
     this.payload.editUsersByAdmin(this.UserId).subscribe((data:any)=>{
     this.globalData=data;
+    console.log(this.globalData,'uyggygv');
+    
     let statename = this.states.find((state:any) => state.states == this.globalData.body[0].state);
     this.selectedStateId = statename.id;
     this.onChangeDistrict()
@@ -68,7 +70,7 @@ bio:new FormControl('')
   adminEditUserForm(){
     let name =  this.myForm.get('name')?.value;
     let bio = this.myForm.get('bio')?.value;
-    //let usersub = 
+    let email = this.myForm.get('email')?.value;
     let hobby = this.myForm.get('hobbies')?.value;
     let stateString = this.selectedStateId;
     let statename = this.states.find((state:any) => state.id == stateString);
@@ -76,11 +78,12 @@ bio:new FormControl('')
     let city = this.myForm.get('district')?.value;
     let profilePic = this.files;
     console.log(bio,'hbuhiuhuh');
-    this.payload.updateUsersByAdmin(this.UserId,name,allState,city,hobby,bio,profilePic).subscribe(
+    this.payload.updateUsersByAdmin(this.UserId,email,name,allState,city,hobby,bio,profilePic).subscribe(
       data => {
         console.log(data,'overall'); 
         return true;
       })
+    this.router.navigate(['/admin'])
   }
 
   onFilechange(event: any) {

@@ -19,20 +19,34 @@ export class AppComponent  {
     location: localStorage.getItem('location')    
   };
 
-  isAuthenticated: boolean;
+  public ngOnInit() {
 
-  constructor(private router: Router,
-              private cognitoService: CognitoService
-              ) {
-    this.isAuthenticated = false;
-  }
-  
-  public ngOnInit(): void {
+    
     this.cognitoService.isAuthenticated()
     .then((success: boolean) => {
+      console.log(success,'oninit');
       this.isAuthenticated = success;         
     });
   }
+
+  Recive($event:boolean){
+    console.log($event,'Appp');
+    
+      
+  }
+
+  
+
+  isAuthenticated: boolean;
+  
+  
+  constructor(private router: Router,
+    private cognitoService: CognitoService
+    ) {
+      this.isAuthenticated = false;
+    }
+    
+  
 
   
 

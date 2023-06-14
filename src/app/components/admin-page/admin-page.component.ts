@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { PayloadService } from './../../services/payload.service';
-import { Component, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { CognitoService } from 'src/app/services/cognito.service';
 
 @Component({
   selector: 'app-admin-page',
@@ -8,6 +9,8 @@ import { Component, EventEmitter } from '@angular/core';
   styleUrls: ['./admin-page.component.scss']
 })
 export class AdminPageComponent {
+  @Output() BoolAuth=new EventEmitter<boolean>();
+
   data: any=[];
   editdata:any=[];
   searchValue:string='';
@@ -16,12 +19,22 @@ export class AdminPageComponent {
   selectedId:number=0;
   id:number=3;
   currentUser:any;
+  
+  
+  
 
-  constructor(private router: Router,private payload: PayloadService) { }
+  constructor(private router: Router,private payload: PayloadService, private cognitoService:CognitoService) { }
 
   ngOnInit() {
     this.getUsers();
     this.editUsers();
+    this.cognitoService.isAuthenticated()
+    .then((success: boolean) => {
+      console.log(success,'admin-page-comp');
+      this.BoolAuth.emit(success);
+      console.log(this.BoolAuth,'fjjfjfjf');
+               
+    });
   }
   
   getUsers(){
