@@ -20,6 +20,7 @@ export class ProfileComponent {
   UserLocation:any;
   showModal: boolean;
   selectedImage:any;
+  UserId:any;
   constructor(private cognitoService: CognitoService, 
               private payload:PayloadService,
               private router: Router) {
@@ -43,11 +44,14 @@ export class ProfileComponent {
 
     //Get All Images From S3 Based On Location.
     this.payload.getImagesByLocation().subscribe((baseImage:any)=>{
-      const {body:{user:{signedUsername,userLocation}}}=baseImage;
+      console.log(baseImage);
+      const {body:{user:{id,signedUsername,userLocation}}}=baseImage;
+      this.UserId = id;
       this.UserName = signedUsername;
       this.UserLocation = userLocation;
-      localStorage.setItem('signedUser',this.UserName);
-      localStorage.setItem('location',this.UserLocation);
+      localStorage.setItem('UserId',id);
+      localStorage.setItem('signedUser',signedUsername);
+      localStorage.setItem('location',userLocation);
       for(let i=0;i<baseImage.body.files.length;i++){
         this.thumbnail[i] = baseImage.body.files[i].imageurl;
       }

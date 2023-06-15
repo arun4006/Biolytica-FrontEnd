@@ -1,14 +1,14 @@
 <p>admin-page works!</p>
 <div class="search-div">
-  <span><b>Search </b></span>
-  <input type="text" [(ngModel)]="searchValue" (input)="changeSearchValue($event)">
+  <span class="search-label"><b>Search</b></span>
+  <input type="text" class="form-control search" [(ngModel)]="searchValue" placeholder="By Name Or Email" (input)="changeSearchValue($event)">
   <i class="fa fa-search"></i>
 </div>
 <div class="container">
   <table class="table">
       <thead class="thead-dark">
         <tr>
-          <th>DP</th>
+          <!-- <th>DP</th> -->
           <th>Name</th>
           <th>Email</th>
           <th>City</th>
@@ -24,8 +24,7 @@
         totalItems: allUsers
       }">
         <tr *ngIf="searchValue ===''|| row.name.toLowerCase().includes(searchValue)||row.email.toLowerCase().includes(searchValue)">
-          <td><img class="img" src={{row.profilepic}} alt="Profile Pic"></td>
-          <td>{{ row.name }}</td>
+          <td><img class="img" src={{row.profilepic}} alt="Profile Pic">{{ row.name|titlecase }}</td>
           <td>{{ row.email }}</td>
           <td>{{ row.district }}</td>
           <td>{{row.hobbies}}</td>

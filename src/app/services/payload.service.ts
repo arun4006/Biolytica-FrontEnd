@@ -66,6 +66,7 @@ import { Objects } from '../interface/Objects';
     const headers = new HttpHeaders().set('Authorization', `Bearer ${accessToken}`);
     return this.http.get<any[]>(this.GET_FORM_URL+Id,{headers})
   }
+  
   updateUsersByAdmin(Id:number,name:any,allState:any,city:any,hobby:any,bio:any,profilePic:File):Observable<any[]>{
     let formParams = new FormData();
     formParams.append('file',profilePic);
@@ -74,8 +75,6 @@ import { Objects } from '../interface/Objects';
     formParams.append('bio',bio);
     formParams.append('district',city);
     formParams.append('state',allState);
-
-    
     formParams.forEach(element => {
       console.log(element);
       
@@ -116,7 +115,6 @@ import { Objects } from '../interface/Objects';
 
   deleteUserByAdmin(Id:number):Observable<any[]>{
     console.log(Id,'Url');
-    
     const accessToken = localStorage.getItem('AccessToken')
     const headers = new HttpHeaders().set('Authorization', `Bearer ${accessToken}`);
     return this.http.delete<any[]>(this.DELETE_URL+Id,{headers})

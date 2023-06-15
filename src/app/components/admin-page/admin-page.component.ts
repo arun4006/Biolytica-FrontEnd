@@ -1,7 +1,9 @@
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute} from '@angular/router';
 import { PayloadService } from './../../services/payload.service';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { CognitoService } from 'src/app/services/cognito.service';
+import {  TitleCasePipe } from '@angular/common';
+import { Subscription } from 'aws-sdk/clients/ec2';
 
 @Component({
   selector: 'app-admin-page',
@@ -22,12 +24,17 @@ export class AdminPageComponent {
   
   
   
+  
 
-  constructor(private router: Router,private payload: PayloadService, private cognitoService:CognitoService) { }
+  constructor(private router: Router,private payload: PayloadService, private cognitoService:CognitoService, 
+              private route:ActivatedRoute) { 
+                route.params.subscribe(val=>{
+                  this.getUsers()
+                })
+              }
 
   ngOnInit() {
     this.getUsers();
-    this.editUsers();
     this.cognitoService.isAuthenticated()
     .then((success: boolean) => {
       console.log(success,'admin-page-comp');
@@ -79,6 +86,7 @@ export class AdminPageComponent {
     this.payload.deleteUserByAdmin(id).subscribe((res:any)=>{
       console.log(id, 'deluser id');
       console.log(res);
+      this.getUsers();
     })
   }
 

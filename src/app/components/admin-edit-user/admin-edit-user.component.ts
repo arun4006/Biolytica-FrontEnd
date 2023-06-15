@@ -76,13 +76,12 @@ bio:new FormControl('')
     let allState = statename.states.toString();
     let city = this.myForm.get('district')?.value;
     let profilePic = this.files;
-    console.log(bio,'hbuhiuhuh');
     this.payload.updateUsersByAdmin(this.UserId,name,allState,city,hobby,bio,profilePic).subscribe(
       data => {
         console.log(data,'overall'); 
         return true;
       })
-      this.router.navigate(['/admin'])
+    this.router.navigate(['/admin'])
   }
 
   onFilechange(event: any) {

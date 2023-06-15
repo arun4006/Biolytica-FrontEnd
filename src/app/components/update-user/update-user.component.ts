@@ -49,8 +49,11 @@ bio:new FormControl('')
       this.states = event.body;
       console.log(this.states);
     })
-    this.UserId = this.routes.snapshot.params['Id']; 
+    this.UserId = localStorage.getItem('UserId'); 
+    console.log(this.UserId);
     this.payload.editUsersByAdmin(this.UserId).subscribe((data:any)=>{
+    console.log(data,'update profile');
+    
     this.globalData=data;
     let statename = this.states.find((state:any) => state.states == this.globalData.body[0].state);
     this.selectedStateId = statename.id;
@@ -79,11 +82,11 @@ bio:new FormControl('')
     let city = this.myForm.get('district')?.value;
     let profilePic = this.files;
     console.log(bio,'hbuhiuhuh');
-    // this.payload.updateUsersByAdmin(this.UserId,name,allState,city,hobby,bio,profilePic).subscribe(
-    //   data => {
-    //     console.log(data,'overall'); 
-    //     return true;
-    //   })
+    this.payload.updateUsersByAdmin(this.UserId,name,allState,city,hobby,bio,profilePic).subscribe(
+      data => {
+        console.log(data,'overall'); 
+        return true;
+      })
   }
 
   onFilechange(event: any) {
