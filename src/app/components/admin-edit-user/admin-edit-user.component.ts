@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router,ActivatedRoute } from '@angular/router';
 import { CognitoService, IUser } from 'src/app/services/cognito.service';
 import { PayloadService } from 'src/app/services/payload.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-edit-user',
@@ -82,6 +83,7 @@ bio:new FormControl('')
         return true;
       })
     this.router.navigate(['/admin'])
+    Swal.fire('Updated Succesfully','User information has been updated.','success')
   }
 
   onFilechange(event: any) {

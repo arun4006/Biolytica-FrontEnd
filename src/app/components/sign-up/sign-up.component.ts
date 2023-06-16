@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import {PayloadService} from '../../services/payload.service'
 import { IUser, CognitoService } from '../../services/cognito.service';
 import { FormGroup,FormBuilder,FormControl, FormArray } from '@angular/forms';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -100,6 +101,11 @@ export class SignUpComponent {
         return true;
       })
      this.cognitoService.confirmSignUp(this.user)
+     Swal.fire(
+      'User Created!',
+      'The user has been Created Successfully.',
+      'success'
+    )
     .then(() => {
       this.router.navigate(['/signIn']);
     }).catch(() => {

@@ -4,6 +4,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { CognitoService } from 'src/app/services/cognito.service';
 import {  TitleCasePipe } from '@angular/common';
 import { Subscription } from 'aws-sdk/clients/ec2';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-page',
@@ -87,6 +88,11 @@ export class AdminPageComponent {
       console.log(id, 'deluser id');
       console.log(res);
       this.getUsers();
+      Swal.fire(
+        'Deleted!',
+        'The user has been deleted.',
+        'success'
+      );
     })
   }
 

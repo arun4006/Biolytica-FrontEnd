@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CognitoService } from './services/cognito.service';
@@ -12,8 +12,10 @@ import { PayloadService } from './services/payload.service';
   providers:[ProfileComponent,PayloadService]
 })
 export class AppComponent  {
+  
   title = 'aws'
   //currentuser:CurrentUser | undefined; 
+  @Input() recievedValue:any;
    currentUser:any = {
     username: localStorage.getItem('signedUser'),
     location: localStorage.getItem('location')    

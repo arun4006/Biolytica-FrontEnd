@@ -3,6 +3,7 @@ import {PayloadService} from '../../services/payload.service'
 import { CognitoService, IUser } from 'src/app/services/cognito.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-update-user',
@@ -53,7 +54,6 @@ bio:new FormControl('')
     console.log(this.UserId);
     this.payload.editUsersByAdmin(this.UserId).subscribe((data:any)=>{
     console.log(data,'update profile');
-    
     this.globalData=data;
     let statename = this.states.find((state:any) => state.states == this.globalData.body[0].state);
     this.selectedStateId = statename.id;
@@ -87,6 +87,8 @@ bio:new FormControl('')
         console.log(data,'overall'); 
         return true;
       })
+    this.router.navigate(['/profile'])
+    Swal.fire('Updated Succesfully','User information has been updated.','success')
   }
 
   onFilechange(event: any) {
