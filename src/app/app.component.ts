@@ -16,18 +16,35 @@ export class AppComponent  {
   title = 'aws'
   //currentuser:CurrentUser | undefined; 
   @Input() recievedValue:any;
+
    currentUser:any = {
     username: localStorage.getItem('signedUser'),
     location: localStorage.getItem('location')    
   };
 
   public ngOnInit() {
-
+     
+    console.log("current user"+this.currentUser);
+    
     
     this.cognitoService.isAuthenticated()
     .then((success: boolean) => {
       console.log(success,'oninit');
-      this.isAuthenticated = success;         
+      if(success){
+        this.cognitoService.confirmLogged();
+        this.cognitoService.getisLogged.subscribe((data)=>{
+          console.log("data from app.cpmonet"+data);
+          this.isAuthenticated = data;
+          
+        })
+      }
+      else {
+        this.cognitoService.getisLogged.subscribe((data)=>{
+          console.log("data from app.cpmonet"+data);
+          this.isAuthenticated = data;
+          
+        })
+      }       
     });
   }
 
@@ -59,6 +76,7 @@ export class AppComponent  {
       localStorage.removeItem('AccessToken')
       localStorage.removeItem('signedUser');
       localStorage.removeItem('location');
+      localStorage.removeItem('UserId');
       this.router.navigate(['/signIn']);
     });
   }

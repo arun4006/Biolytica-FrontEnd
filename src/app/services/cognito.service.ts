@@ -25,6 +25,9 @@ export interface IUser {
 export class CognitoService {
 
   private authenticationSubject: BehaviorSubject<any>;
+  private isLogged = new BehaviorSubject(false);
+
+  getisLogged=this.isLogged.asObservable();
 
   constructor() {
     Amplify.configure({
@@ -89,6 +92,10 @@ export class CognitoService {
     .then((cognitoUser: any) => {
       return Auth.updateUserAttributes(cognitoUser, user);
     });
+  }
+
+  confirmLogged(){
+    this.isLogged.next(true);
   }
 
 }

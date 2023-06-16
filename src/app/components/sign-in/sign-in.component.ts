@@ -28,6 +28,7 @@ export class SignInComponent {
     .then(() => {
       Auth.currentSession()
     .then((data) => {
+    this.cognitoService.confirmLogged();
     const accessToken = data.getAccessToken().getJwtToken();
     localStorage.setItem('AccessToken',accessToken );
     this.payload.isAdmin(accessToken).subscribe((res:any)=>{  
