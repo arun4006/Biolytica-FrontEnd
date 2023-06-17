@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CognitoService } from './services/cognito.service';
 import { PayloadService } from './services/payload.service';
-
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -19,14 +19,33 @@ export class AppComponent  {
     location: localStorage.getItem('location')    
   };
 
-  public ngOnInit() {
 
-    
+
+  public ngOnInit() {   
     this.cognitoService.isAuthenticated()
     .then((success: boolean) => {
       console.log(success,'oninit');
-      this.isAuthenticated = success;         
+      //this.cognitoService.demo();
+      if(success){
+        this.cognitoService.demo();
+        this.cognitoService.getisLogged.subscribe((data)=>{
+          console.log("data from app.cpmonet"+data);
+          this.isAuthenticated = data;
+          
+        })
+      }
+      else {
+        this.cognitoService.getisLogged.subscribe((data)=>{
+          console.log("data from app.cpmonet"+data);
+          this.isAuthenticated = data;
+          
+        })
+      }
+      
+        
+         
     });
+   // console.log(this.isLogged.value,'isLogged');
   }
 
   Recive($event:boolean){
@@ -35,10 +54,7 @@ export class AppComponent  {
       
   }
 
-  
-
   isAuthenticated: boolean;
-  
   
   constructor(private router: Router,
     private cognitoService: CognitoService
@@ -46,9 +62,6 @@ export class AppComponent  {
       this.isAuthenticated = false;
     }
     
-  
-
-  
 
   public signOut(): void {
     this.cognitoService.signOut()
@@ -60,6 +73,8 @@ export class AppComponent  {
       this.router.navigate(['/signIn']);
     });
   }
+
+ 
 
 
 }

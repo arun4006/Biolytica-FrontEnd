@@ -26,8 +26,10 @@ export class SignInComponent {
     this.loading = true;
     this.cognitoService.signIn(this.user)
     .then(() => {
+     this.cognitoService.authenticationSubject.next(false);
       Auth.currentSession()
     .then((data) => {
+      this.cognitoService.demo();
     const accessToken = data.getAccessToken().getJwtToken();
     localStorage.setItem('AccessToken',accessToken );
     this.payload.isAdmin(accessToken).subscribe((res:any)=>{  
@@ -48,4 +50,4 @@ export class SignInComponent {
     });
   }
 
-}
+}   
