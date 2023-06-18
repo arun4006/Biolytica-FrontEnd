@@ -24,7 +24,7 @@ export interface IUser {
 })
 export class CognitoService {
 
-  private authenticationSubject: BehaviorSubject<any>;
+  public authenticationSubject: BehaviorSubject<any>;
   private isLogged = new BehaviorSubject(false);
 
   getisLogged=this.isLogged.asObservable();
@@ -33,7 +33,8 @@ export class CognitoService {
     Amplify.configure({
       Auth: environment.cognito,
     });
-
+    console.log("isLogged",this.isLogged.value);
+    
     this.authenticationSubject = new BehaviorSubject<boolean>(false);
   }
 
@@ -94,8 +95,12 @@ export class CognitoService {
     });
   }
 
-  confirmLogged(){
+  demo(){
     this.isLogged.next(true);
+  }
+
+  demo1() {
+    this.isLogged.next(false);
   }
 
 }

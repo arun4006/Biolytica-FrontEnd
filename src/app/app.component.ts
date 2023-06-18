@@ -1,9 +1,9 @@
-import { Component,Input,ViewChild, OnInit } from '@angular/core';
+import { Component, OnInit,Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CognitoService } from './services/cognito.service';
 import { PayloadService } from './services/payload.service';
-
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -23,12 +23,15 @@ export class AppComponent  {
       this.isAuthenticated = false;
     }
 
-  public ngOnInit() {
+
+
+  public ngOnInit() {   
     this.cognitoService.isAuthenticated()
     .then((success: boolean) => {
       console.log(success,'oninit');
+      //this.cognitoService.demo();
       if(success){
-        this.cognitoService.confirmLogged();
+        this.cognitoService.demo();
         this.cognitoService.getisLogged.subscribe((data)=>{
           console.log("data from app.cpmonet"+data);
           this.isAuthenticated = data;
@@ -62,6 +65,8 @@ export class AppComponent  {
       this.router.navigate(['/signIn']);
     });
   }
+
+ 
 
 
 }
