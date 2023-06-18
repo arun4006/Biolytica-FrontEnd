@@ -22,8 +22,8 @@ export class UpdateUserComponent {
   districts: any=[];
   selectedStateId: number;
   filteredDistricts: any=[];
- myForm: any;
-  items: string[] = ['Reading', 'Sport', 'Gym', 'Drawing'];
+  myForm: any;
+  items: string[] = ['Reading', 'Sport', 'Gym', 'Drawing','Cooking','Photography','Video Editing','Gardening','Current Affairs'];
   selectedItems:string[]=this.items;
   file:string='';
   selectedFile:File|null;
@@ -53,7 +53,6 @@ bio:new FormControl('')
     this.UserId = localStorage.getItem('UserId'); 
     console.log(this.UserId);
     this.payload.editUsersByAdmin(this.UserId).subscribe((data:any)=>{
-    console.log(data,'update profile');
     this.globalData=data;
     let statename = this.states.find((state:any) => state.states == this.globalData.body[0].state);
     this.selectedStateId = statename.id;
@@ -74,14 +73,12 @@ bio:new FormControl('')
   adminEditUserForm(){
     let name =  this.myForm.get('name')?.value;
     let bio = this.myForm.get('bio')?.value;
-    //let usersub = 
     let hobby = this.myForm.get('hobbies')?.value;
     let stateString = this.selectedStateId;
     let statename = this.states.find((state:any) => state.id == stateString);
     let allState = statename.states.toString();
     let city = this.myForm.get('district')?.value;
     let profilePic = this.files;
-    console.log(bio,'hbuhiuhuh');
     this.payload.updateUsersByAdmin(this.UserId,name,allState,city,hobby,bio,profilePic).subscribe(
       data => {
         console.log(data,'overall'); 
@@ -104,10 +101,8 @@ bio:new FormControl('')
 
   onChangeDistrict():void {
     this.filteredDistricts=[];
-    console.log(this.selectedStateId,'from district');
     this.payload.getDistricts(this.selectedStateId).subscribe((districts:any) => {
       this.districts = districts.body ;
-      console.log(this.districts,'districts');
       if(this.districts.length>0){
         this.filteredDistricts = this.districts.filter(
           (district:any) => district.stateId == this.selectedStateId);

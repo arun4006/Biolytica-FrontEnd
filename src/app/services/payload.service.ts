@@ -47,10 +47,16 @@ import { Objects } from '../interface/Objects';
 
   
 
-  getImagesByLocation(){
+  getImagesByLocation():Observable<any[]>{
     const LocalToken = localStorage.getItem('AccessToken')
     const headers = new HttpHeaders().set('Authorization', `Bearer ${LocalToken}`);
-    return this.http.get(this.GET_URL,{headers})
+    return this.http.get<any[]>(this.GET_URL,{headers})
+  }
+
+  getImagesInNavBar():Promise<any>{
+    const LocalToken = localStorage.getItem('AccessToken')
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${LocalToken}`);
+    return this.http.get(this.GET_URL,{headers}).toPromise()
   }
 
   getStates():Observable<any[]>{
@@ -75,17 +81,8 @@ import { Objects } from '../interface/Objects';
     formParams.append('bio',bio);
     formParams.append('district',city);
     formParams.append('state',allState);
-    formParams.forEach(element => {
-      console.log(element);
-      
-      
-    });
-    
     const accessToken = localStorage.getItem('AccessToken')
     const headers = new HttpHeaders().set('Authorization', `Bearer ${accessToken}`);
-    formParams.forEach((value, key) => {
-      console.log(key, value);
-    });
     return this.http.put<any[]>(this.UPDATE_URL+Id,formParams,{headers})
   }
 

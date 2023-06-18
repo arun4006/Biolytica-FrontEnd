@@ -13,7 +13,6 @@ import Swal from 'sweetalert2';
 })
 export class AdminPageComponent {
   @Output() BoolAuth=new EventEmitter<boolean>();
-
   data: any=[];
   editdata:any=[];
   searchValue:string='';
@@ -22,10 +21,6 @@ export class AdminPageComponent {
   selectedId:number=0;
   id:number=3;
   currentUser:any;
-  
-  
-  
-  
 
   constructor(private router: Router,private payload: PayloadService, private cognitoService:CognitoService, 
               private route:ActivatedRoute) { 
@@ -47,20 +42,16 @@ export class AdminPageComponent {
   
   getUsers(){
     this.payload.getData(this.pagination).subscribe((response:any) => {
-      console.log("getusers:"+response.body.userList);
       this.data = response.body.userList;
       this.allUsers=response.body.id;
       this.currentUser=response.body.user;
-      localStorage.setItem('signedUser',this.currentUser.signedUsername);
-      localStorage.setItem('location',this.currentUser.userLocation);
-      localStorage.setItem('profilepic',this.currentUser.profilePic);
-      console.log(this.data);
+      // localStorage.setItem('signedUser',this.currentUser.signedUsername);
+      // localStorage.setItem('location',this.currentUser.userLocation);
     })
   }
 
   editUsers(){
     this.payload.editUsersByAdmin(this.id).subscribe((res:any)=>{
-      console.log(res.body,'edituser');
       this.editdata=res.body;
       this.allUsers=res.body.id;
     })
@@ -78,7 +69,6 @@ export class AdminPageComponent {
 
   editForm(id:number){
     this.selectedId=id;
-    console.log(this.selectedId,'editForm');
     this.router.navigate(['/editUser',id]);
   }
 

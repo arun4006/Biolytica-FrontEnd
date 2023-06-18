@@ -50,12 +50,12 @@ bio:new FormControl('')
     this.UserId = this.routes.snapshot.paramMap.get('id'); //this.routes.snapshot.params['Id']; 
     this.payload.editUsersByAdmin(this.UserId).subscribe((data:any)=>{
     this.globalData=data;
-    console.log(this.globalData,'uyggygv');
-    
     let statename = this.states.find((state:any) => state.states == this.globalData.body[0].state);
     this.selectedStateId = statename.id;
     this.onChangeDistrict()
     this.file=this.globalData.body[0].profilepic
+    console.log(this.file);
+    
     var gg = this.globalData.body[0].hobbies.split(',');
     this.myForm = this.formBuilder.group({
       email: new FormControl(this.globalData.body[0].email),
@@ -99,10 +99,8 @@ bio:new FormControl('')
 
   onChangeDistrict():void {
     this.filteredDistricts=[];
-    console.log(this.selectedStateId,'from district');
     this.payload.getDistricts(this.selectedStateId).subscribe((districts:any) => {
       this.districts = districts.body ;
-      console.log(this.districts,'districts');
       if(this.districts.length>0){
         this.filteredDistricts = this.districts.filter(
           (district:any) => district.stateId == this.selectedStateId);

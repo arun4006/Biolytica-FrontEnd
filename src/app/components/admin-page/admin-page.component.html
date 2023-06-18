@@ -14,21 +14,21 @@
           <th>Hobbies</th>
           <th>Bio</th>
           <th>Posts</th>
-          <th>Action</th>
+          <th></th>
         </tr>
       </thead>
-      <tbody *ngFor="let row of data| paginate: {
+      <tbody  *ngFor="let row of data| paginate: {
         itemsPerPage:5 ,
         currentPage: pagination,
         totalItems: allUsers
       }">
         <tr *ngIf="searchValue ===''|| row.name.toLowerCase().includes(searchValue)||row.email.toLowerCase().includes(searchValue)">
           <td><img class="img" src={{row.profilepic}} alt="Profile Pic">{{ row.name|titlecase }}</td>
-          <td>{{ row.email }}</td>
-          <td>{{ row.district }}</td>
-          <td>{{row.hobbies}}</td>
-          <td>{{row.bio}}</td>
-          <td>{{ row.num_posts}}</td>
+          <td class="table-data">{{ row.email }}</td>
+          <td class="table-data">{{ row.district }}</td>
+          <td class="table-data">{{row.hobbies}}</td>
+          <td class="table-data">{{row.bio}}</td>
+          <td class="table-data">{{ row.num_posts}}</td>
           <td>
             <button class="btn btn-sm btn-warning" (click)="editForm(row.id)" style="margin-right:0.5rem;">
               <i class="fa fa-edit"></i>Edit</button>

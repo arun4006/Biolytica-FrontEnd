@@ -1,4 +1,4 @@
-import { Component,Input, OnInit } from '@angular/core';
+import { Component,Input,ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CognitoService } from './services/cognito.service';
@@ -13,20 +13,17 @@ import { PayloadService } from './services/payload.service';
 })
 export class AppComponent  {
   
-  title = 'aws'
-  //currentuser:CurrentUser | undefined; 
-  @Input() recievedValue:any;
-
-   currentUser:any = {
-    username: localStorage.getItem('signedUser'),
-    location: localStorage.getItem('location')    
-  };
+  title = 'aws';
+  isAuthenticated: boolean;
+  userName:any;
+  userLocation:any;
+  proflePicUrl:any;
+  constructor(private router: Router,
+    private cognitoService: CognitoService,private profile:ProfileComponent,private payload:PayloadService) {
+      this.isAuthenticated = false;
+    }
 
   public ngOnInit() {
-     
-    console.log("current user"+this.currentUser);
-    
-    
     this.cognitoService.isAuthenticated()
     .then((success: boolean) => {
       console.log(success,'oninit');
@@ -46,36 +43,21 @@ export class AppComponent  {
         })
       }       
     });
+    this.getUserDetailsInNavBar()
   }
-
-  Recive($event:boolean){
-    console.log($event,'Appp');
-    
-      
+  getUserDetailsInNavBar(){
+    this.payload.getImagesByLocation().subscribe((data:any)=>{
+      this.userName = data.body.user.signedUsername;
+      this.userLocation = data.body.user.userLocation;
+      this.proflePicUrl = data.body.user.profilePic;
+    })
   }
-
-  
-
-  isAuthenticated: boolean;
-  
-  
-  constructor(private router: Router,
-    private cognitoService: CognitoService
-    ) {
-      this.isAuthenticated = false;
-    }
-    
-  
-
-  
 
   public signOut(): void {
     this.cognitoService.signOut()
     .then(() => {
       this.isAuthenticated = false;
-      localStorage.removeItem('AccessToken')
-      localStorage.removeItem('signedUser');
-      localStorage.removeItem('location');
+      localStorage.removeItem('AccessToken');
       localStorage.removeItem('UserId');
       this.router.navigate(['/signIn']);
     });

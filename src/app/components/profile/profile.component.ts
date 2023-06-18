@@ -30,6 +30,7 @@ export class ProfileComponent {
     this.showModal=false;
 
   }
+  
 
   public ngOnInit(): void {
     if(! localStorage.getItem('AccessToken')){
@@ -40,19 +41,15 @@ export class ProfileComponent {
     .then((user: any) => {
       this.user = user.attributes;
       this.getImagesByLocationFunction();
-      localStorage.setItem('UserName',this.UserName)
     });
 
+    
+    
     //Get All Images From S3 Based On Location.
     this.payload.getImagesByLocation().subscribe((baseImage:any)=>{
-      const {body:{user:{id,signedUsername,userLocation,profilePic}}}=baseImage;
+      const {body:{user:{id}}}=baseImage;
       this.UserId = id;
-      this.ProfilePic = profilePic;
-      this.UserName = signedUsername;
-      this.UserLocation = userLocation;
       localStorage.setItem('UserId',id);
-      localStorage.setItem('signedUser',signedUsername);
-      localStorage.setItem('location',userLocation);
       for(let i=0;i<baseImage.body.files.length;i++){
         this.thumbnail[i] = baseImage.body.files[i].imageurl;
       }
@@ -60,11 +57,9 @@ export class ProfileComponent {
     }
   }
 
+
   getImagesByLocationFunction(){
     this.payload.getImagesByLocation().subscribe((baseImage:any)=>{
-      console.log(baseImage);
-      this.UserName = baseImage.body.user.signedUsername;
-      this.UserLocation = baseImage.body.user.userLocation;
       for(let i=0;i<baseImage.body.files.length;i++){
         this.thumbnail[i] = baseImage.body.files[i].imageurl;
         
@@ -77,12 +72,10 @@ export class ProfileComponent {
     this.file =event.target.files[0];
   }
   @ViewChild('fileInput', { static: false }) fileInput!: ElementRef<HTMLInputElement>;
-  
   upload() {
     console.log(this.file);
     if (this.file) {
       this.payload.uploadnewfile(this.file).subscribe(resp => {            
-        //alert("file Uploaded"); 
         this.getImagesByLocationFunction();  
         this.file = null; 
         this.fileInput.nativeElement.value = this.file;    

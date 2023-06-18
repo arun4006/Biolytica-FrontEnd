@@ -88,9 +88,13 @@
 
                 <div class="row">
                   <div class="col d-grid">
-                    <button type="button" (click)="adminEditUserForm()" class="btn btn-sm btn-success" [disabled]="loading">
+                    <button type="button" (click)="adminEditUserForm()" class="btn btn-sm btn-outline-success "  [disabled]="loading">
                       <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
                       Update
+                    </button>
+                    <button type="button" routerLink="/admin" class="back-btn btn btn-sm btn-outline-info">
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
+                      Back
                     </button>
                   </div>
                 </div>
