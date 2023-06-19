@@ -46,7 +46,7 @@ export class AppComponent  {
         })
       }       
     });
-    this.getUserDetailsInNavBar()
+     this.getUserDetailsInNavBar()
   }
   getUserDetailsInNavBar(){
     this.payload.getImagesByLocation().subscribe((data:any)=>{

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import {PayloadService} from '../../services/payload.service'
 import { IUser, CognitoService } from '../../services/cognito.service';
 import {Amplify, Auth } from 'aws-amplify';
+
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -16,7 +17,8 @@ export class SignInComponent {
   isAdmin :boolean;
 
   constructor(private router: Router,
-              private cognitoService: CognitoService,private payload:PayloadService ) {
+              private cognitoService: CognitoService,private payload:PayloadService,
+              ) {
     this.loading = false;
     this.user = {} as IUser;
     this.isAdmin = false;

@@ -31,6 +31,7 @@
     "material-icons": "^1.13.7",
     "ngx-google-places-autocomplete": "^2.0.5",
     "ngx-pagination": "^6.0.3",
+    "ngx-toastr": "^16.2.0",
     "sweetalert2": "^11.7.12",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

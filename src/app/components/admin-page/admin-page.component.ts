@@ -25,7 +25,6 @@ export class AdminPageComponent {
   
   constructor(private router: Router,private payload: PayloadService, private cognitoService:CognitoService, 
               private route:ActivatedRoute) { 
-                
                 route.params.subscribe(val=>{
                   this.getUsers()
                 })
@@ -35,10 +34,7 @@ export class AdminPageComponent {
     this.getUsers();
     this.cognitoService.isAuthenticated()
     .then((success: boolean) => {
-      console.log(success,'admin-page-comp');
-      // this.BoolAuth.emit(success);
-      //console.log(this.BoolAuth,'fjjfjfjf');
-               
+      console.log(success,'admin-page-comp');       
     });
     
   }

@@ -19,13 +19,13 @@
 
     <ul class="nav navbar-nav ms-auto" *ngIf="isAuthenticated">
         <li class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><img class="profile-pic" src={{proflePicUrl}} alt="Img"> {{userName}}</a>
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><img class="profile-pic" src={{proflePicUrl}} alt="Img"> {{userName.toUpperCase()}}</a>
             <div class="dropdown-menu dropdown-menu-end">
-               <a href="#" class="dropdown-item text-center">{{userName}}</a>
-                <a href="#" class="dropdown-item" routerLink="/update" routerLinkActive="active"><i class="bi bi-pencil-square"></i>Profile</a>
-                <a href="#" class="dropdown-item"><i class="bi-geo-alt"></i>{{userLocation}}</a>
+               <a class="dropdown-item text-center">{{userName.toUpperCase()}}</a>
+                <a href="#" class="dropdown-item" routerLink="/update" routerLinkActive="active"><i class="bi bi-pencil-square"></i>  Profile</a>
+                <a class="dropdown-item"><i class="bi-geo-alt"></i> {{userLocation.toUpperCase()}}</a>
                 <div class="dropdown-divider"></div>
-                <a routerLink="/signOut" (click)="signOut()" class="dropdown-item">Sign out</a>
+                <a routerLink="/signOut" (click)="signOut()" class="dropdown-item"><i class="bi bi-box-arrow-left"></i> Sign Out</a>
             </div>
         </li>
     </ul>
