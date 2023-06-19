@@ -50,8 +50,8 @@ export class AppComponent  {
   }
   getUserDetailsInNavBar(){
     this.payload.getImagesByLocation().subscribe((data:any)=>{
-      this.userName = data.body.user.signedUsername;
-      this.userLocation = data.body.user.userLocation;
+      this.userName = data.body.user.signedUsername.toUpperCase();
+      this.userLocation = data.body.user.userLocation.toUpperCase();
       this.proflePicUrl = data.body.user.profilePic;
     })
   }
