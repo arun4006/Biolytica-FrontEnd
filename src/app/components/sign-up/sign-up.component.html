@@ -84,7 +84,7 @@
                 <mat-label>Select State</mat-label>
                   <mat-select [(ngModel)]="selectedStateId" name="state" (selectionChange)="onChangeDistrict()">
                     <mat-option *ngFor="let state of states" [value]="state.id">
-                      {{state.states}}
+                      {{state.state_name}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -96,7 +96,7 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Select City</mat-label>
                   <mat-select  [(ngModel)]="user.District" name="district">
-                    <mat-option *ngFor="let city of filteredDistricts" [value]="city.district">{{city.district}}
+                    <mat-option *ngFor="let city of districts" [value]="city.id">{{city.city_name}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>

@@ -84,18 +84,18 @@ export class SignUpComponent {
     let name =  this.user.name;
     let bio = this.user.Bio;
     let hobby = this.user.Hobbies;
-    let stateString = this.selectedStateId;
-    let statename = this.states.find((state:any) => state.id == stateString);
-    let allState = statename.states.toString();
+    let stateId = this.selectedStateId;
+    // console.log(stateString);
+    
+    // let statename = this.states.find((state:any) => state.id == stateString);
+    // let allState = statename.states.toString();
     let city = this.user.District;
     let profilePic = this.files;
     
-  console.log(name,email,usersub,allState,city,hobby,bio,profilePic,'from');
-  console.log("allState"+typeof allState);
-  console.log("allState"+typeof allState);
+  console.log(name,email,usersub,stateId,city,hobby,bio,profilePic,'from');
   
     
-    this.payload.sendPayload(name,email,usersub,allState,city,hobby,bio,profilePic).subscribe(
+    this.payload.sendPayload(name,email,usersub,stateId,city,hobby,bio,profilePic).subscribe(
       data => {
         console.log(data,'overall'); 
         return true;
@@ -119,12 +119,12 @@ export class SignUpComponent {
     this.filteredDistricts=[];
     console.log(this.selectedStateId,'from district');
     this.payload.getDistricts(this.selectedStateId).subscribe((districts:any) => {
-      this.districts = districts.body ;
+      this.districts = districts.body;
       console.log(this.districts,'districts');
-      if(this.districts.length>0){
-        this.filteredDistricts = this.districts.filter(
-          (district:any) => district.stateId == this.selectedStateId);
-      }
+      // if(this.districts.length>0){
+      //   this.filteredDistricts = this.districts.filter(
+      //     (district:any) => district.stateId == this.selectedStateId);
+      // }
         });
   }
  }

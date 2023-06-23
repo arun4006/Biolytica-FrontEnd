@@ -1,5 +1,5 @@
 import { Component, OnInit,Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CognitoService } from './services/cognito.service';
 import { PayloadService } from './services/payload.service';
@@ -19,7 +19,7 @@ export class AppComponent  {
   userLocation:any;
   proflePicUrl:any;
   constructor(private router: Router,
-    private cognitoService: CognitoService,private profile:ProfileComponent,private payload:PayloadService) {
+    private cognitoService: CognitoService,private activatedRoute:ActivatedRoute,private payload:PayloadService) {
       this.isAuthenticated = false;
     }
 
@@ -46,7 +46,13 @@ export class AppComponent  {
         })
       }       
     });
-     this.getUserDetailsInNavBar()
+    this,this.activatedRoute.paramMap.subscribe((val)=>{
+      this.userName;
+      this.userLocation;
+      this.proflePicUrl
+
+    })
+     //this.getUserDetailsInNavBar()
   }
   getUserDetailsInNavBar(){
     this.payload.getImagesByLocation().subscribe((data:any)=>{
