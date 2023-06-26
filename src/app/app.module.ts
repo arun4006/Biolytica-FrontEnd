@@ -19,6 +19,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { UpdateUserComponent } from './components/update-user/update-user.component';
 import { AdminPageComponent } from './components/admin-page/admin-page.component';
 import { AdminEditUserComponent } from './components/admin-edit-user/admin-edit-user.component';
+import { ListUsersComponent } from './components/list-users/list-users.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AdminEditUserComponent } from './components/admin-edit-user/admin-edit-
     ProfileComponent,
     UpdateUserComponent,
     AdminPageComponent,
-    AdminEditUserComponent
+    AdminEditUserComponent,
+    ListUsersComponent
   ],
   imports: [
     BrowserModule,

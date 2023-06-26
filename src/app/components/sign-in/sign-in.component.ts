@@ -15,6 +15,7 @@ export class SignInComponent {
   loading: boolean;
   user: IUser;
   isAdmin :boolean;
+  signedUser:any;
 
   constructor(private router: Router,
               private cognitoService: CognitoService,private payload:PayloadService,
@@ -34,12 +35,22 @@ export class SignInComponent {
       this.cognitoService.demo();
     const accessToken = data.getAccessToken().getJwtToken();
     localStorage.setItem('AccessToken',accessToken );
-    this.payload.isAdmin(accessToken).subscribe((res:any)=>{  
-      console.log("isAdmin value"+typeof JSON.parse(res.body));     
-      this.isAdmin=JSON.parse(res.body);     
-      if(this.isAdmin)
+    console.log(accessToken)
+    this.payload.GetSignedUserInfo(accessToken).subscribe((res:any)=>{  
+    console.log("signedUser"+ JSON.stringify(res.body)); 
+    const userData=JSON.stringify(res.body); 
+    this.signedUser={
+      userName:res.body.name,
+      profilePic:res.body.profile_pic
+    } 
+
+    this.cognitoService.setSignedUserData(userData);
+    console.log("after insert into service"+this.signedUser);
+    this.isAdmin=res.body.is_admin;
+
+    if(this.isAdmin)
       {
-        this.router.navigate(['/admin']); 
+        this.router.navigate(['/users']); 
       }else{
         this.router.navigate(['/profile']);
       }

@@ -1,0 +1,56 @@
+<div class="search-div">
+    <span class="search-label"><b>Search</b></span>
+    <input type="text" class="form-control search" [(ngModel)]="searchText" (input)="onSearchChange()">
+</div>
+
+<div class="container">
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th style="padding-left: 66px">NAME</th>
+            <th>EMAIL</th>
+            <th>CITY</th>
+            <th>HOBBIES</th>
+            <th>BIO</th>
+            <th>POSTS</th>
+            <th></th>
+          </tr>
+        </thead>
+  <tbody>
+         <tr *ngFor="let user of users">
+             <td class="table-data"><img class="img" src={{user.profile_pic}} alt="Profile Pic">{{user.name}}</td>
+             <td class="table-data">{{user.email}}</td>
+             <td class="table-data">{{user.district_id}}</td>
+             <td class="table-data">{{user.hobbies}}</td>
+             <td class="table-data">{{user.bio}}</td>
+             <td class="table-data">{{user.num_posts}}</td>
+             <td>
+                <button class="btn btn-outline-info" (click)="editForm(user.id)" style="margin-right:0.5rem;">
+                  <i class="bi bi-pencil-square"></i></button>
+                 <button class="btn btn-outline-danger" (click)="deleteUser(user.id)" style="margin-right:0.5rem;">
+                  <i class="bi bi-trash"></i></button> 
+              </td>
+         </tr>
+  </tbody>
+ 
+</table>
+<div class="pagination">
+    <button class="pagination-button prev-button" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
+  
+    <ng-container *ngFor="let page of getPageRange(totalPages)">
+      <button class="pagination-button" [class.active]="currentPage === page" (click)="changePage(page)">{{ page }}</button>
+    </ng-container>
+  
+    <button class="pagination-button next-button" (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
+</div>
+</div>
+
+
+
+         
+   
+  
+
+  
+    
+

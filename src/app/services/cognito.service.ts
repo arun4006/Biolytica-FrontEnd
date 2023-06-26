@@ -26,6 +26,7 @@ export class CognitoService {
 
   public authenticationSubject: BehaviorSubject<any>;
   private isLogged = new BehaviorSubject(false);
+  signedUserInfo:any;
 
   getisLogged=this.isLogged.asObservable();
 
@@ -102,5 +103,12 @@ export class CognitoService {
   demo1() {
     this.isLogged.next(false);
   }
+ 
+  setSignedUserData(data: any) {
+    this.signedUserInfo = data;
+  }
 
+  getSignedUserData() {
+    return this.signedUserInfo;
+  }
 }

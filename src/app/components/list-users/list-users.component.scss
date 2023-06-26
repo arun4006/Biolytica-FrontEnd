@@ -1,0 +1,80 @@
+.thead-dark{
+   // text-align: center;
+    text-shadow: 0cqmin;
+}
+.table-data{
+   // text-align: center;
+    font-size: medium;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+.tab{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.search-div{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10px 20px;
+    padding: 30px 20px;
+    margin-left: 500px;
+}
+.fa{
+    font-size: 12px;
+}
+.fa-edit .fa-remove{
+    font-size: 5px;
+    margin-right: 20px;
+    margin-left: 20px;
+    padding: 0px;
+}
+.img{
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    margin-right: 20px ;
+}
+.search {
+    width: 20%;
+}
+.search-label{
+    margin-right: 0.5rem
+}
+
+//pagination
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
+    padding-top: 20px;
+    margin-right: 35px;
+  }
+  
+  .pagination-button {
+    margin: 5px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    background-color: #f4f4f4;
+    cursor: pointer;
+  }
+  
+  .pagination-button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .pagination-button[disabled] {
+    cursor: not-allowed;
+    background-color: #ccc;
+  }
+  
+  .prev-button {
+    background-color: #f9c4cc;
+  }
+  
+  .next-button {
+    background-color: #b2f3c7;
+  }
+  
+  .active {
+    background-color: #a6c6f0;
+  }
+  

@@ -46,6 +46,8 @@ export class AppComponent  {
         })
       }       
     });
+    console.log("data from service"+this.cognitoService.getSignedUserData());
+    
     this,this.activatedRoute.paramMap.subscribe((val)=>{
       this.userName;
       this.userLocation;

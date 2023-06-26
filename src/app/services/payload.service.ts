@@ -1,7 +1,7 @@
 import { environment } from './../../environments/environment.development';
 import { Auth } from 'aws-amplify';
 import { Injectable, Input } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import './cognito.service';
 import { IUser } from './cognito.service';
@@ -20,11 +20,13 @@ import { Objects } from '../interface/Objects';
   private FILE_URL: string = environment.API_ROUTES.FILE_UPLOAD_URL;
   private STATE_URL : string = environment.API_ROUTES.GET_ALL_STATES_URL;
   private DISTRCT_URL: string = environment.API_ROUTES.GET_ALL_DISTRICTS_URL;
-  private ISADMIN_URL:string=environment.API_ROUTES.ISADMIN_URL;
+  private SIGNEDUSER_URL:string=environment.API_ROUTES.SIGNEDUSER_URL;
   private GET_ALL_USERS_URL :string=environment.API_ROUTES.GET_ALL_USERS_URL;
+  private ALL_USERS_URL :string=environment.API_ROUTES.ALL_USERS_URL;
   private GET_FORM_URL:string=environment.API_ROUTES.GET_FORM_DATA_URL;
   private UPDATE_URL:string=environment.API_ROUTES.UPDATE_FORM_DATA_URL;
   private DELETE_URL:string=environment.API_ROUTES.DELETE_URL;
+  page: string='';
    constructor(private http: HttpClient, ) { 
     this.user = {} as IUser;
    }
@@ -76,6 +78,7 @@ import { Objects } from '../interface/Objects';
   updateUsersByAdmin(Id:number,name:any,allState:any,city:any,hobby:any,bio:any,profilePic:File):Observable<any[]>{
     let formParams = new FormData();
     formParams.append('file',profilePic);
+    
     formParams.append('name',name);
     formParams.append('hobbies',hobby);
     formParams.append('bio',bio);
@@ -97,17 +100,34 @@ import { Objects } from '../interface/Objects';
   })
   }  
 
-  getData(page:number): Observable<any[]> {
+  getAllUsers(page:number): Observable<any[]> {
     const accessToken = localStorage.getItem('AccessToken')
     const headers = new HttpHeaders().set('Authorization', `Bearer ${accessToken}`);
-    return this.http.get<any[]>(this.GET_ALL_USERS_URL+ '?page=' + page,{headers}); // + '?page=' + page page:number
+    return this.http.get<any[]>(this.GET_ALL_USERS_URL+page,{headers}); 
     
   }
+  
+  getUsers(page:number,searchText:string): Observable<any[]> {
+    const accessToken = localStorage.getItem('AccessToken')
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${accessToken}`);  
+    const GET_USERS_URL = 'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/getusers';
 
-  isAdmin(token:any):Observable<any[]>{  
+  let params = new HttpParams();
+
+  if (searchText) {
+    params = params.set('search', searchText);
+    params = params.delete('page');
+  } else {
+    params = params.set('page', page);
+  }
+   return this.http.get<any[]>(GET_USERS_URL,{headers,params});  
+  }
+
+
+  GetSignedUserInfo(token:any):Observable<any[]>{  
     console.log("token" +token);      
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any[]>(this.ISADMIN_URL,{headers})
+    return this.http.get<any[]>(this.SIGNEDUSER_URL,{headers})
   }
 
   deleteUserByAdmin(Id:number):Observable<any[]>{

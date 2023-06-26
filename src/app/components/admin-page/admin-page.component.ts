@@ -22,7 +22,7 @@ export class AdminPageComponent {
   id:number=3;
   currentUser:any;
   isAuthenticated:any;
-  
+    
   constructor(private router: Router,private payload: PayloadService, private cognitoService:CognitoService, 
               private route:ActivatedRoute) { 
                 route.params.subscribe(val=>{
@@ -40,10 +40,11 @@ export class AdminPageComponent {
   }
   
   getUsers(){
-    this.payload.getData(this.pagination).subscribe((response:any) => {
-      this.data = response.body.userList;
-      this.allUsers=response.body.id;
-      this.currentUser=response.body.user;
+    this.payload.getAllUsers(5).subscribe((response:any) => {
+      console.log(response)
+       this.data = response.body;
+      // this.allUsers=response.body.id;
+      // this.currentUser=response.body.user;
       // localStorage.setItem('signedUser',this.currentUser.signedUsername);
       // localStorage.setItem('location',this.currentUser.userLocation);
     })
@@ -58,6 +59,8 @@ export class AdminPageComponent {
 
   searchText:EventEmitter<string>=new EventEmitter<string>();
   changeSearchValue(event:Event){
+    console.log("search text value in admin componengt"+event);
+    
     this.searchText.emit(this.searchValue)
   }
 
