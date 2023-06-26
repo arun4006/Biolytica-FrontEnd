@@ -78,7 +78,6 @@ import { Objects } from '../interface/Objects';
   updateUsersByAdmin(Id:number,name:any,allState:any,city:any,hobby:any,bio:any,profilePic:File):Observable<any[]>{
     let formParams = new FormData();
     formParams.append('file',profilePic);
-    
     formParams.append('name',name);
     formParams.append('hobbies',hobby);
     formParams.append('bio',bio);

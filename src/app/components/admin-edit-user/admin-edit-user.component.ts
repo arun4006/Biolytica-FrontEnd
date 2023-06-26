@@ -36,7 +36,7 @@ this.myForm = this.formBuilder.group({
 profilePicture: null,
 email: new FormControl(''),
 name: new FormControl(''),
-stateew:new FormControl(''),
+state:new FormControl(''),
 district:new FormControl(''),
 hobbies:new FormControl(['']),
 bio:new FormControl('')
@@ -50,22 +50,22 @@ bio:new FormControl('')
     this.UserId = this.routes.snapshot.paramMap.get('id'); //this.routes.snapshot.params['Id']; 
     this.payload.editUsersByAdmin(this.UserId).subscribe((data:any)=>{
     this.globalData=data;
+    console.log();
+    
     let statename = this.states.find((s:any) => s.id == this.globalData.body.state_id);
     console.log("statename"+statename);
-    
-    this.selectedStateId = statename.id;
+    this.selectedStateId = parseInt(statename.id)
     console.log("selectedStateId"+ this.selectedStateId );
     
     this.onChangeDistrict()
     this.file=this.globalData.body.profile_pic
     console.log(this.file);
-    
     var gg = this.globalData.body.hobbies.split(',');
     this.myForm = this.formBuilder.group({
       email: new FormControl(this.globalData.body.email),
       name: new FormControl(this.globalData.body.name),
-      stateew:new FormControl(statename.id),
-      district:new FormControl(this.globalData.body.district),
+      state:new FormControl(this.selectedStateId),
+      district:new FormControl(parseInt(this.globalData.body.district_id)),
       bio:new FormControl(this.globalData.body.bio),
       hobbies:new FormControl(gg),
       });
@@ -76,12 +76,14 @@ bio:new FormControl('')
     let name =  this.myForm.get('name')?.value;
     let bio = this.myForm.get('bio')?.value;
     let hobby = this.myForm.get('hobbies')?.value;
-    let stateString = this.selectedStateId;
-    let statename = this.states.find((state:any) => state.id == stateString);
-    let allState = statename.states.toString();
+    let state =this.myForm.get('state')?.value;
+    console.log(state);
+    
+    // let statename = this.states.find((state:any) => state.id == stateString);
+    // let allState = statename.states;
     let city = this.myForm.get('district')?.value;
     let profilePic = this.files;
-    this.payload.updateUsersByAdmin(this.UserId,name,allState,city,hobby,bio,profilePic).subscribe(
+    this.payload.updateUsersByAdmin(this.UserId,name,state,city,hobby,bio,profilePic).subscribe(
       data => {
         console.log(data,'overall'); 
         return true;
@@ -104,7 +106,7 @@ bio:new FormControl('')
   onChangeDistrict():void {
     this.filteredDistricts=[];
     this.payload.getDistricts(this.selectedStateId).subscribe((districts:any) => {
-      this.districts = districts.body ;
+      this.districts = districts.body;
       if(this.districts.length>0){
         this.filteredDistricts = this.districts.filter(
           (district:any) => district.stateId == this.selectedStateId);

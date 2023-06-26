@@ -41,8 +41,9 @@ export class AdminPageComponent {
   
   getUsers(){
     this.payload.getAllUsers(5).subscribe((response:any) => {
-      console.log(response)
+      console.log('getusers',response)
        this.data = response.body;
+
       // this.allUsers=response.body.id;
       // this.currentUser=response.body.user;
       // localStorage.setItem('signedUser',this.currentUser.signedUsername);
