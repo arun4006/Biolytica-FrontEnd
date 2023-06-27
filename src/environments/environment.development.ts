@@ -15,7 +15,7 @@ export const environment = {
       SIGNEDUSER_URL:'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/auth/user',
       GET_FORM_DATA_URL:'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/user/',
       GET_ALL_USERS_URL:'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/users/',
-      ALL_USERS_URL:'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/getusers?page=',
+      GET_USERS_URL:'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/getusers?page=',
       UPDATE_FORM_DATA_URL:'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/user/edit/',
       DELETE_URL:'https://f0um40c994.execute-api.us-east-1.amazonaws.com/dev/user/delete/'
     }

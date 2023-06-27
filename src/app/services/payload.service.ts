@@ -22,7 +22,7 @@ import { Objects } from '../interface/Objects';
   private DISTRCT_URL: string = environment.API_ROUTES.GET_ALL_DISTRICTS_URL;
   private SIGNEDUSER_URL:string=environment.API_ROUTES.SIGNEDUSER_URL;
   private GET_ALL_USERS_URL :string=environment.API_ROUTES.GET_ALL_USERS_URL;
-  private ALL_USERS_URL :string=environment.API_ROUTES.ALL_USERS_URL;
+  private GET_USERS_URL :string=environment.API_ROUTES.GET_USERS_URL;
   private GET_FORM_URL:string=environment.API_ROUTES.GET_FORM_DATA_URL;
   private UPDATE_URL:string=environment.API_ROUTES.UPDATE_FORM_DATA_URL;
   private DELETE_URL:string=environment.API_ROUTES.DELETE_URL;

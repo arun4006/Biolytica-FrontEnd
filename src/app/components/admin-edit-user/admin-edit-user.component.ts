@@ -99,7 +99,7 @@ bio:new FormControl('')
       reader.readAsDataURL(event.target.files[0]);
       reader.onload=(e:any)=>{
         this.file=e.target.result;
-      }
+         }
     } 
     }
 

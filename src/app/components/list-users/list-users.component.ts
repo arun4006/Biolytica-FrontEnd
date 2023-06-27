@@ -44,11 +44,15 @@ export class ListUsersComponent implements OnInit {
 
   getUsers(page: number,searchText:string) {
     this.payload.getUsers(page,searchText).subscribe((response: any) => {
-      console.log(response);
+      console.log("getuserRespose:"+response.body);
       this.users = response.body.users;
       this.totalPages = response.body.totalPages;
       console.log(this.users);
-    });
+    }),
+    (error: any) => {
+      console.error("An error occurred:", error.body);
+      // Handle the error here, e.g., display an error message to the user.
+    }
   }
 
   editUsers() {
@@ -63,13 +67,39 @@ export class ListUsersComponent implements OnInit {
     this.router.navigate(['/editUser', id]);
   }
 
-  deleteUser(id: number) {
+  deleteUser(id: number,name:string) {
+    
+    Swal.fire({
+      title: 'Are you sure?',
+      html: `<span class="custom-message">Do you want to delete <strong>${name}?</strong>.</span>`,
+      icon: 'error',
+      showCancelButton: true,
+      cancelButtonText: 'Cancel',
+      cancelButtonColor: '#c1c1c1',
+      showConfirmButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      confirmButtonColor: '#f15e5e',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.confirmDelete(id);
+        Swal.fire({
+          icon: 'success',
+          title: 'Deleted',
+          showConfirmButton: false,
+          timer: 1000
+        })
+        this.getUsers(1,'');
+      }
+    })
+  }
+  
+  confirmDelete(id: number){
     this.payload.deleteUserByAdmin(id).subscribe((res: any) => {
       console.log(id, 'deluser id');
       console.log(res);
-      this.getUsers(id,'');
-      Swal.fire('Deleted!', 'The user has been deleted.', 'success');
-    });
+      //this.getUsers(id,'');
+     });
   }
 
   onSearchChange(): void {
@@ -91,5 +121,10 @@ export class ListUsersComponent implements OnInit {
 
   getPageRange(totalPages: number): number[] {
     return Array.from({ length: totalPages }, (_, index) => index + 1);
+  }
+
+  deleteDemo(){
+    console.log("deleteDemo");
+    
   }
 }
