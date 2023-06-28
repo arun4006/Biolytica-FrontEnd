@@ -76,6 +76,7 @@ import { Objects } from '../interface/Objects';
   }
   
   updateUsersByAdmin(Id:number,name:any,allState:any,city:any,hobby:any,bio:any,profilePic:File):Observable<any[]>{
+       
     let formParams = new FormData();
     formParams.append('file',profilePic);
     formParams.append('name',name);
@@ -83,6 +84,11 @@ import { Objects } from '../interface/Objects';
     formParams.append('bio',bio);
     formParams.append('district',city);
     formParams.append('state',allState);
+    formParams.forEach(element => {
+      console.log(element,'payload service');
+      
+    });
+    
     const accessToken = localStorage.getItem('AccessToken')
     const headers = new HttpHeaders().set('Authorization', `Bearer ${accessToken}`);
     return this.http.put<any[]>(this.UPDATE_URL+Id,formParams,{headers})

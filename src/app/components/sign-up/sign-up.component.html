@@ -1,4 +1,4 @@
-
+<form class="form" #registerForm="ngForm" (ngSubmit)=" registerForm.form.valid && signUp()" novalidate>
 <div class="profileContainer">
 <div class="avatar-container" *ngIf="!isConfirm">
   <div class="image-container" 
@@ -18,94 +18,90 @@
     <div class="col-4">
       <div class="card">
         <div class="card-body" *ngIf="!isConfirm">
-          <div class="row">
+          <div class="row mb-2">
             <div class="col">
               <mat-form-field appearance="outline" class="w-100" >
                 <mat-label>Name</mat-label>
-                <input matInput type="text" id="name" name="name" #name="ngModel" [(ngModel)]="user.name" >
+                <input matInput type="text" required id="name"  name="name" #name="ngModel" [(ngModel)]="user.name" >
+                <mat-error class="text-danger" *ngIf="(name.touched ||registerForm.submitted)&& name.errors?.['required']">Name is Required</mat-error>
               </mat-form-field>
+              <!-- <span class="text-danger" *ngIf="(name.touched ||registerForm.submitted)&& name.errors?.['required']">Name is Required</span> -->
             </div>
+            
           </div>
           
-          <div class="row">
+          <div class="row mb-2">
             <div class="col">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Email</mat-label>
-                <input matInput type="email" id="email" name="email" #email="ngModel" [(ngModel)]="user.email">
+                <input matInput type="email" required id="email" name="email" #email="ngModel" [(ngModel)]="user.email">
+                <mat-error class="text-danger" *ngIf="(email.touched ||registerForm.submitted)&& email.errors?.['required']">Email is Required</mat-error>
               </mat-form-field>
             </div>
           </div>
-          
 
-          <!-- <div class="row mb-2 form-group">
-            <div class="col mb-3">
-              <span><label for="name" class="form-label">Name</label></span>
-              <input type="text" id="name" name="name" #name="ngModel" [(ngModel)]="user.name" class="form-control form-control-sm"> 
-            </div>
-          </div> -->
-
-          <!-- <div class="row">
-            <div class="col mb-2">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" id="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control form-control-sm">
-            </div>
-          </div> -->
-
-          <div class="row form-group">
+          <div class="row mb-2 form-group">
             <div class="col">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Password</mat-label>
-                <input matInput [type]="user.showPassword ? 'text' : 'password'" id="password" name="password" #password="ngModel" [(ngModel)]="user.password">
+                <input matInput [type]="user.showPassword ? 'text' : 'password'" id="password" name="password" required #password="ngModel" [(ngModel)]="user.password">
+                <mat-error class="text-danger" *ngIf="(password.touched ||registerForm.submitted)&& password.errors?.['required']">Password is Required</mat-error>
                 <button mat-icon-button matSuffix (click)="user.showPassword = !user.showPassword" [attr.aria-label]="user.showPassword ? 'Hide password' : 'Show password'" class="mat-form-field">
                   <mat-icon>{{ user.showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
                 </button>
               </mat-form-field>
             </div>
-          </div>
-          
-          
-          <!-- <div class="row form-Group">
-            <div class="col mb-2">
-              <label for="password" class="form-label">Password</label>
-              <div class="input-group input-group-sm">
-            
-                <input [type]="user.showPassword ? 'text' : 'password'" id="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control form-control-sm">
-                <button type="button" class="btn btn-outline-secondary" (click)="user.showPassword = !user.showPassword">
-                  <i class="bi" [ngClass]="{'bi-eye-fill': !user.showPassword, 'bi-eye-slash-fill': user.showPassword}"></i>
-                </button>
-              </div>
-            </div>
-          </div>  -->
-    
+          </div>    
              
-          <div class="row form-group">
+          <!-- <div class="row mb-2">
             <div class="col">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Select State</mat-label>
-                  <mat-select [(ngModel)]="selectedStateId" name="state" (selectionChange)="onChangeDistrict()">
+                  <mat-select  [(ngModel)]="selectedStateId"  name="state" (selectionChange)="onChangeDistrict()">
                     <mat-option *ngFor="let state of states" [value]="state.id">
                       {{state.state_name}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
+          </div> -->
+
+          <div class="row mb-2">
+            <div class="col">   
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Select State</mat-label>
+                  <mat-select  [(ngModel)]="selectedStateId" required name="state" #StateList="ngModel" (selectionChange)="onChangeDistrict()">
+                    <!-- <mat-option *ngFor="let city of districts" [value]="city.id">{{city.city_name}} -->
+                      <mat-option *ngFor="let state of states" [value]="state.id">{{state.state_name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error class="text-danger" *ngIf="(StateList.touched ||registerForm.submitted)&& StateList.errors?.['required']">Please Select State</mat-error>
+              </mat-form-field>            
+              <!-- <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Select State</mat-label>
+                  <mat-select  [(ngModel)]="selectedStateId" required  name="state" #state="ngModel" (selectionChange)="onChangeDistrict() " >
+                    <mat-option *ngFor="let state of states" [value]="state.id">{{state.state_name}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error class="text-danger" *ngIf="(state.touched ||registerForm.submitted)&& state.errors?.['required']">Please Select State</mat-error>
+              </mat-form-field> -->
+            </div>
           </div>
               
-          <div class="row">
+          <div class="row mb-2">
             <div class="col">              
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Select City</mat-label>
-                  <mat-select  [(ngModel)]="user.District" name="district">
+                  <mat-select  [(ngModel)]="user.District" required name="district" #district="ngModel">
                     <mat-option *ngFor="let city of districts" [value]="city.id">{{city.city_name}}
-                  </mat-option>
+                    </mat-option>
                 </mat-select>
+                <mat-error class="text-danger" *ngIf="(district.touched ||registerForm.submitted)&& district.errors?.['required']">Please Select city</mat-error>
               </mat-form-field>
             </div>
           </div>
-          
-          
 
-           <div class="row form-group">
+          <div class="row mb-2 form-group">
             <div class="col">  
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Select Hobby</mat-label>
@@ -129,7 +125,7 @@
 
           <div class="row">
             <div class="col d-grid">
-              <button type="button" (click)="signUp()" class="btn btn-sm btn-success" [disabled]="loading">
+              <button type="submit"  class="btn btn-sm btn-success" [disabled]="loading">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
                 Submit
               </button>
@@ -155,4 +151,4 @@
       </div>
     </div>
   </div>
-<!-- </form> -->
+</form>

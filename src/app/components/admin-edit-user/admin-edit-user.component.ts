@@ -78,7 +78,6 @@ bio:new FormControl('')
     let hobby = this.myForm.get('hobbies')?.value;
     let state =this.myForm.get('state')?.value;
     console.log(state);
-    
     // let statename = this.states.find((state:any) => state.id == stateString);
     // let allState = statename.states;
     let city = this.myForm.get('district')?.value;
@@ -86,9 +85,8 @@ bio:new FormControl('')
     this.payload.updateUsersByAdmin(this.UserId,name,state,city,hobby,bio,profilePic).subscribe(
       data => {
         console.log(data,'overall'); 
-        return true;
       })
-    this.router.navigate(['/admin'])
+    this.router.navigate(['/users'])
     Swal.fire('Updated Succesfully','User information has been updated.','success')
   }
 

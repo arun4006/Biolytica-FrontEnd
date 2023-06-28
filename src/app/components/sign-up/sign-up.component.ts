@@ -18,7 +18,7 @@ export class SignUpComponent {
   user: IUser;
   states: any=[];
   districts: any=[];
-  selectedStateId: number;
+  selectedStateId: any;
   filteredDistricts: any=[];
   myForm: FormGroup;
   //hobbies:FormArray
@@ -33,7 +33,7 @@ export class SignUpComponent {
     this.loading = false;
     this.isConfirm = false;
     this.user = {} as IUser;
-    this.selectedStateId = 0;
+    //this.selectedStateId = 0;
     this.selectedFile = null;
     this.myForm = this.formBuilder.group({
       profilePicture: null,
@@ -65,7 +65,7 @@ export class SignUpComponent {
   
 
   public signUp(): void {
-    console.log("Clicked")
+    // console.log(param,"Clicked")
     this.loading = true;
     this.cognitoService.signUp(this.user)
     .then((res) => {

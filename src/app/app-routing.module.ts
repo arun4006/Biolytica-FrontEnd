@@ -4,7 +4,6 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { UpdateUserComponent } from './components/update-user/update-user.component';
-import { AdminPageComponent } from './components/admin-page/admin-page.component';
 import { AdminEditUserComponent } from './components/admin-edit-user/admin-edit-user.component';
 import { ListUsersComponent } from './components/list-users/list-users.component';
 
@@ -29,10 +28,6 @@ const routes: Routes = [
   {
     path: 'update',
     component: UpdateUserComponent,
-  },
-  {
-    path: 'admin',
-    component: AdminPageComponent,
   },
   {
     path: 'editUser/:id',
