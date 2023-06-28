@@ -43,26 +43,16 @@ export class ProfileComponent {
       this.getImagesByLocationFunction();
     });
 
-    
-    
-    //Get All Images From S3 Based On Location.
-    this.payload.getImagesByLocation().subscribe((baseImage:any)=>{
-      const {body:{user:{id}}}=baseImage;
-      this.UserId = id;
-      localStorage.setItem('UserId',id);
-      for(let i=0;i<baseImage.body.files.length;i++){
-        this.thumbnail[i] = baseImage.body.files[i].imageurl;
-      }
-    })
+
     }
   }
 
 
   getImagesByLocationFunction(){
     this.payload.getImagesByLocation().subscribe((baseImage:any)=>{
-      for(let i=0;i<baseImage.body.files.length;i++){
-        this.thumbnail[i] = baseImage.body.files[i].imageurl;
-        
+      for(let i=0;i<baseImage.body.length;i++){
+        console.log("image"+baseImage.body+" "+i);
+        this.thumbnail[i] = baseImage.body[i].image_url;  
       }
     })
   }

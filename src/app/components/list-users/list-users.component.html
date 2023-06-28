@@ -20,14 +20,14 @@
          <tr *ngFor="let user of users">
              <td class="table-data"><img class="img" src={{user.profile_pic}} alt="Profile Pic">{{user.name}}</td>
              <td class="table-data">{{user.email}}</td>
-             <td class="table-data">{{user.district_id}}</td>
+             <td class="table-data">{{user.City.city_name}}</td>
              <td class="table-data">{{user.hobbies}}</td>
              <td class="table-data">{{user.bio}}</td>
              <td class="table-data">{{user.num_posts}}</td>
              <td>
                 <button class="btn btn-outline-info" (click)="editForm(user.id)" style="margin-right:0.5rem;">
                   <i class="bi bi-pencil-square"></i></button>
-                 <button class="btn btn-outline-danger" (click)="deleteUser(user.id)" style="margin-right:0.5rem;">
+                 <button class="btn btn-outline-danger" (click)="deleteUser(user.id,user.name)" style="margin-right:0.5rem;">
                   <i class="bi bi-trash"></i></button> 
               </td>
          </tr>

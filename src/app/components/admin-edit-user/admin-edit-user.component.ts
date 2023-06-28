@@ -86,8 +86,13 @@ bio:new FormControl('')
       data => {
         console.log(data,'overall'); 
       })
-    this.router.navigate(['/users'])
-    Swal.fire('Updated Succesfully','User information has been updated.','success')
+      Swal.fire({
+        icon: 'success',
+        title: 'Updated Succesfully',
+        showConfirmButton: false,
+        timer: 1000
+      })  
+    this.router.navigate(['/users']);
   }
 
   onFilechange(event: any) {

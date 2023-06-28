@@ -63,13 +63,39 @@ export class ListUsersComponent implements OnInit {
     this.router.navigate(['/editUser', id]);
   }
 
-  deleteUser(id: number) {
+  deleteUser(id: number,name:string) {
+    
+    Swal.fire({
+      title: 'Are you sure?',
+      html: `<span class="custom-message">Do you want to delete <strong>${name}?</strong>.</span>`,
+      icon: 'error',
+      showCancelButton: true,
+      cancelButtonText: 'Cancel',
+      cancelButtonColor: '#c1c1c1',
+      showConfirmButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      confirmButtonColor: '#f15e5e',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.confirmDelete(id);
+        Swal.fire({
+          icon: 'success',
+          title: 'Deleted',
+          showConfirmButton: false,
+          timer: 1000
+        })
+        this.getUsers(1,'');
+      }
+    })
+  }
+  
+  confirmDelete(id: number){
     this.payload.deleteUserByAdmin(id).subscribe((res: any) => {
       console.log(id, 'deluser id');
       console.log(res);
-      this.getUsers(id,'');
-      Swal.fire('Deleted!', 'The user has been deleted.', 'success');
-    });
+      //this.getUsers(id,'');
+     });
   }
 
   onSearchChange(): void {

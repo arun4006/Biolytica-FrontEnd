@@ -35,7 +35,7 @@ export class AppComponent  {
         this.cognitoService.getisLogged.subscribe((data)=>{
           console.log("data from app.cpmonet"+data);
           this.isAuthenticated = data;
-          
+          this.getProfileData();
         })
       }
       else {
@@ -48,12 +48,12 @@ export class AppComponent  {
     });
     console.log("data from service"+this.cognitoService.getSignedUserData());
     
-    this,this.activatedRoute.paramMap.subscribe((val)=>{
-      this.userName;
-      this.userLocation;
-      this.proflePicUrl
+    // this,this.activatedRoute.paramMap.subscribe((val)=>{
+    //   this.userName;
+    //   this.userLocation;
+    //   this.proflePicUrl
 
-    })
+    // })
      //this.getUserDetailsInNavBar()
   }
   getUserDetailsInNavBar(){
@@ -64,11 +64,28 @@ export class AppComponent  {
     })
   }
 
+  getProfileData(){
+    console.log("userData for navbar");
+     this.userName = localStorage.getItem('userName');
+     this.userLocation = localStorage.getItem('userLocation');
+     this.proflePicUrl = localStorage.getItem('ProfilePic');
+}
+
+reserProfileData(){
+  localStorage.removeItem('userName');
+  localStorage.removeItem('userLocation');
+  localStorage.removeItem('ProfilePic');
+  this.userName='';
+  this.userLocation='';
+  this.proflePicUrl='';
+}
+
   public signOut(): void {
     this.cognitoService.signOut()
     .then(() => {
       this.isAuthenticated = false;
       localStorage.removeItem('AccessToken');
+      this.reserProfileData();
       localStorage.removeItem('UserId');
       this.router.navigate(['/signIn']);
     });

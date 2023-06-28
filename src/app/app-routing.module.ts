@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { UpdateUserComponent } from './components/update-user/update-user.component';
 import { AdminEditUserComponent } from './components/admin-edit-user/admin-edit-user.component';
 import { ListUsersComponent } from './components/list-users/list-users.component';
 
@@ -24,10 +23,6 @@ const routes: Routes = [
   {
     path: 'signUp',
     component: SignUpComponent,
-  },
-  {
-    path: 'update',
-    component: UpdateUserComponent,
   },
   {
     path: 'editUser/:id',

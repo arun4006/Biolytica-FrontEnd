@@ -16,7 +16,6 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { UpdateUserComponent } from './components/update-user/update-user.component';
 import { AdminEditUserComponent } from './components/admin-edit-user/admin-edit-user.component';
 import { ListUsersComponent } from './components/list-users/list-users.component';
 
@@ -26,7 +25,6 @@ import { ListUsersComponent } from './components/list-users/list-users.component
     SignInComponent,
     SignUpComponent,
     ProfileComponent,
-    UpdateUserComponent,
     AdminEditUserComponent,
     ListUsersComponent
   ],
