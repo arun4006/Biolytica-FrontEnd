@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
+import { FormControl, Validators } from '@angular/forms';
  
 import {PayloadService} from '../../services/payload.service'
 import { IUser, CognitoService } from '../../services/cognito.service';
@@ -17,47 +18,29 @@ export class SignInComponent {
 
   loading: boolean;
   user: IUser;
+  email: Validators;
   isAdmin :boolean;
   signedUser:any;
   errorMessage: string = '';
-  passwordRequiredErrorMessage: string = 'Password is required';
-  passwordLengthErrorMessage: string = 'Password must be at least 8 characters';
-  EmailRequiredErrorMessage :string = 'Email is required';
-  InvalidEmailErrorMessage: string = 'Invalid Email Address';
 
+  // validateEmail(email: string): boolean {
+  //   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   return emailPattern.test(email);
+  // }
 
-  constructor(private router: Router,private appComponent: AppComponent,
+  constructor(private router: Router, private appComponent: AppComponent,
               private cognitoService: CognitoService,private payload:PayloadService,
               ) {
     this.loading = false;
     this.user = {} as IUser;
     this.isAdmin = false;
+    this.email = '';
   }
 
-  public signIn(): void {
-    this.loading = true;
 
 
-    if (!this.user.email) {
-      this.errorMessage = this.EmailRequiredErrorMessage;
-      this.loading = false;
-      return;
-    } else if (!this.user.email.includes('@') || !this.user.email.includes('.')) {
-        this.errorMessage = this.InvalidEmailErrorMessage;
-        this.loading = false;
-        return;
-      }
-  
-      if (!this.user.password) {
-        this.errorMessage = this.passwordRequiredErrorMessage;
-        this.loading = false;
-        return;
-      } else if (this.user.password.length < 8) {
-        this.errorMessage = this.passwordLengthErrorMessage;
-        this.loading = false;
-        return;
-      }
-    
+public signIn(): void {
+  this.loading = true;
   
     this.cognitoService.signIn(this.user)
       .then(() => {
@@ -74,8 +57,6 @@ export class SignInComponent {
             localStorage.setItem('ProfilePic',res.body.profile_pic) 
             localStorage.setItem('userLocation',res.body.City.city_name); 
         
-            // this.cognitoService.setSignedUserData(res.body);
-            // console.log("after insert into service from sign in component"+this.cognitoService.getSignedUserData());
             this.isAdmin=res.body.is_admin;
             this.appComponent.getProfileData();
             if(this.isAdmin)
