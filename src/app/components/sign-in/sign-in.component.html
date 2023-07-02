@@ -1,40 +1,44 @@
-<form class="form" #signinForm="ngForm" (ngSubmit)=" signinForm.form.valid && signIn()" novalidate>
-<div class="row justify-content-center my-5">
+<form class="form" #SignIn="ngForm" (ngSubmit)=" SignIn.form.valid && signIn()" novalidate>
+  <div class="row justify-content-center my-5">
     <div class="col-4">
       <div class="card">
         <div class="card-body">
-          
-          <div class="row mb-2">
-            <div class="col">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Email</mat-label>
-                <input matInput type="email" required email id="email" name="email" #email="ngModel" [(ngModel)]="user.email">
-                <mat-error class="text-danger" *ngIf="(email.touched ||signinForm.submitted)&& email.errors?.['required']">Email is Required</mat-error>
-              </mat-form-field>
-            </div>
-          </div>
 
-          <div class="row mb-2 form-group">
-            <div class="col">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Password</mat-label>
-                <input matInput [type]="user.showPassword ? 'text' : 'password'" id="password" name="password" required #password="ngModel" [(ngModel)]="user.password">
-                <mat-error class="text-danger" *ngIf="(password.touched ||signinForm.submitted)&& password.errors?.['required']">Password is Required</mat-error>
-                <button mat-icon-button matSuffix (click)="user.showPassword = !user.showPassword" [attr.aria-label]="user.showPassword ? 'Hide password' : 'Show password'" class="mat-form-field">
-                  <mat-icon>{{ user.showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
-                </button>
-              </mat-form-field>
-            </div>
-          </div>
+    <div class="row mb-2">
+      <div class="col">
+        <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Email</mat-label><input matInput type="email" required id="email" name="email" #email="ngModel" [(ngModel)]="user.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+        <mat-error class="text-danger" *ngIf="(email.touched ||SignIn.submitted)&& email.errors?.['required']">Email is Required</mat-error>        
+        <!-- <mat-error class="text-danger" *ngIf="email.touched && email.hasError('required')">Email is required</mat-error> -->
+        <mat-error class="text-danger" *ngIf="email.touched && email.hasError('pattern')">Invalid email address</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row mb-2 form-group">
+      <div class="col">
+        <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Password</mat-label>
+              <input matInput [type]="user.showPassword ? 'text' : 'password'" id="password" name="password" required minlength="8" #password="ngModel" [(ngModel)]="user.password">
+              <mat-error class="text-danger" *ngIf="(password.touched || SignIn.submitted) && password.errors?.['required']">Password is required</mat-error>
+              <mat-error class="text-danger" *ngIf="(password.touched || SignIn.submitted) && password.errors?.['minlength']">Password must be at least 8 characters</mat-error>
+              <button mat-icon-button matSuffix (click)="user.showPassword = !user.showPassword" [attr.aria-label]="user.showPassword ? 'Hide password' : 'Show password'" class="mat-form-field">
+                <mat-icon>{{ user.showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+        </mat-form-field>
+            <mat-error class="text-danger" *ngIf="errorMessage === 'Invalid email and password'">Invalid credentials</mat-error>
+      </div>
+    </div>
+
           <div class="row">
             <div class="col d-grid">
-              <button type="button" (click)="signIn()" class="btn btn-sm  btn-warning" [disabled]="loading">
+              <button mat-raised-button color="warn" class="custom-signin-button" [disabled]="loading">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
                 <i class="bi bi-box-arrow-right"></i> Sign In
-
               </button>
             </div>
           </div>
+          
         </div>
       </div>
     </div>
