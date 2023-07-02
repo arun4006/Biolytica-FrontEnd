@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {PayloadService} from '../../services/payload.service'
 import { IUser, CognitoService } from '../../services/cognito.service';
-import { FormGroup,FormBuilder,FormControl, FormArray } from '@angular/forms';
+import { FormGroup,FormBuilder } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-sign-up',
@@ -29,7 +30,8 @@ export class SignUpComponent {
   files:any;
 
   constructor(private router: Router,
-              private cognitoService: CognitoService, private payload:PayloadService,private formBuilder: FormBuilder) {
+              private cognitoService: CognitoService, private payload:PayloadService,private formBuilder: FormBuilder,
+              private toastr: ToastrModule) {
     this.loading = false;
     this.isConfirm = false;
     this.user = {} as IUser;
@@ -72,8 +74,13 @@ export class SignUpComponent {
       this.globalId = res.userSub;     
       this.loading = false;
       this.isConfirm = true;
-    }).catch(() => {
+    }).catch((error) => {
       this.loading = false;
+      if (error.code === 'UsernameExistsException') {
+        Swal.fire(
+          'An account with the given email already exists!'
+        )
+      }
     });
   }
 

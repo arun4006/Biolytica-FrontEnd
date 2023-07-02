@@ -5,6 +5,7 @@ import {PayloadService} from '../../services/payload.service'
 import { IUser, CognitoService } from '../../services/cognito.service';
 import {Amplify, Auth } from 'aws-amplify';
 import {AppComponent} from '../../app.component'
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -38,25 +39,25 @@ export class SignInComponent {
     this.loading = true;
 
 
-    if (!this.user.email) {
-      this.errorMessage = this.EmailRequiredErrorMessage;
-      this.loading = false;
-      return;
-    } else if (!this.user.email.includes('@') || !this.user.email.includes('.')) {
-        this.errorMessage = this.InvalidEmailErrorMessage;
-        this.loading = false;
-        return;
-      }
+    // if (!this.user.email) {
+    //   this.errorMessage = this.EmailRequiredErrorMessage;
+    //   this.loading = false;
+    //   return;
+    // } else if (!this.user.email.includes('@') || !this.user.email.includes('.')) {
+    //     this.errorMessage = this.InvalidEmailErrorMessage;
+    //     this.loading = false;
+    //     return;
+    //   }
   
-      if (!this.user.password) {
-        this.errorMessage = this.passwordRequiredErrorMessage;
-        this.loading = false;
-        return;
-      } else if (this.user.password.length < 8) {
-        this.errorMessage = this.passwordLengthErrorMessage;
-        this.loading = false;
-        return;
-      }
+    //   if (!this.user.password) {
+    //     this.errorMessage = this.passwordRequiredErrorMessage;
+    //     this.loading = false;
+    //     return;
+    //   } else if (this.user.password.length < 8) {
+    //     this.errorMessage = this.passwordLengthErrorMessage;
+    //     this.loading = false;
+    //     return;
+    //   }
     
   
     this.cognitoService.signIn(this.user)
@@ -88,7 +89,11 @@ export class SignInComponent {
         });
       })
       .catch((error) => {
-        this.errorMessage = 'Invalid email and password';
+        if (error.code === 'NotAuthorizedException'){
+          Swal.fire(
+            '  Incorrect Email or Password '
+          )
+        }
         this.loading = false;
         console.error('Error obtaining access token:', error);
       });

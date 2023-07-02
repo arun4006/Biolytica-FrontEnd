@@ -34,8 +34,9 @@
             <div class="col">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Email</mat-label>
-                <input matInput type="email" required id="email" name="email" #email="ngModel" [(ngModel)]="user.email">
+                <input matInput type="email" required email id="email" name="email" #email="ngModel" [(ngModel)]="user.email">
                 <mat-error class="text-danger" *ngIf="(email.touched ||registerForm.submitted)&& email.errors?.['required']">Email is Required</mat-error>
+          
               </mat-form-field>
             </div>
           </div>
@@ -125,7 +126,7 @@
 
           <div class="row">
             <div class="col d-grid">
-              <button type="submit"  class="btn btn-sm btn-success" [disabled]="loading">
+              <button type="submit"  class="btn btn-sm btn-success" [disabled]="!registerForm.valid">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
                 Submit
               </button>
@@ -141,7 +142,7 @@
           </div>
           <div class="row">
             <div class="col d-grid">
-              <button type="button" (click)="confirmSignUp()" class="btn btn-sm btn-success" [disabled]="loading">
+              <button type="button" (click)="confirmSignUp()" class="btn btn-sm btn-success">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
                 Confirm
               </button>
