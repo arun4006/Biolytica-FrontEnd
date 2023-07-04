@@ -25,7 +25,6 @@
                 <input matInput type="text" required id="name"  name="name" #name="ngModel" [(ngModel)]="user.name" >
                 <mat-error class="text-danger" *ngIf="(name.touched ||registerForm.submitted)&& name.errors?.['required']">Name is Required</mat-error>
               </mat-form-field>
-              <!-- <span class="text-danger" *ngIf="(name.touched ||registerForm.submitted)&& name.errors?.['required']">Name is Required</span> -->
             </div>
             
           </div>
@@ -36,7 +35,7 @@
                 <mat-label>Email</mat-label>
                 <input matInput type="email" required email id="email" name="email" #email="ngModel" [(ngModel)]="user.email">
                 <mat-error class="text-danger" *ngIf="(email.touched ||registerForm.submitted)&& email.errors?.['required']">Email is Required</mat-error>
-          
+               
               </mat-form-field>
             </div>
           </div>
@@ -54,38 +53,18 @@
             </div>
           </div>    
              
-          <!-- <div class="row mb-2">
-            <div class="col">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Select State</mat-label>
-                  <mat-select  [(ngModel)]="selectedStateId"  name="state" (selectionChange)="onChangeDistrict()">
-                    <mat-option *ngFor="let state of states" [value]="state.id">
-                      {{state.state_name}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div> -->
+          
 
           <div class="row mb-2">
             <div class="col">   
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Select State</mat-label>
                   <mat-select  [(ngModel)]="selectedStateId" required name="state" #StateList="ngModel" (selectionChange)="onChangeDistrict()">
-                    <!-- <mat-option *ngFor="let city of districts" [value]="city.id">{{city.city_name}} -->
                       <mat-option *ngFor="let state of states" [value]="state.id">{{state.state_name}}
                     </mat-option>
                 </mat-select>
                 <mat-error class="text-danger" *ngIf="(StateList.touched ||registerForm.submitted)&& StateList.errors?.['required']">Please Select State</mat-error>
               </mat-form-field>            
-              <!-- <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Select State</mat-label>
-                  <mat-select  [(ngModel)]="selectedStateId" required  name="state" #state="ngModel" (selectionChange)="onChangeDistrict() " >
-                    <mat-option *ngFor="let state of states" [value]="state.id">{{state.state_name}}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error class="text-danger" *ngIf="(state.touched ||registerForm.submitted)&& state.errors?.['required']">Please Select State</mat-error>
-              </mat-form-field> -->
             </div>
           </div>
               
@@ -123,10 +102,11 @@
             </div>
           </div>
           
-
+          <mat-error class="text-danger" *ngIf="registerForm.submitted&&this.errorCode">{{this.errorCode}}</mat-error>
+          
           <div class="row">
             <div class="col d-grid">
-              <button type="submit"  class="btn btn-sm btn-success" [disabled]="!registerForm.valid">
+              <button type="submit"  class="btn btn-sm btn-success">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
                 Submit
               </button>

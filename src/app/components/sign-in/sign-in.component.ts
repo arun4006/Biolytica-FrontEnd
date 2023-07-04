@@ -23,6 +23,7 @@ export class SignInComponent {
   isAdmin :boolean;
   signedUser:any;
   errorMessage: string = '';
+  errorCode:any;
 
   // validateEmail(email: string): boolean {
   //   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -71,9 +72,7 @@ public signIn(): void {
       })
       .catch((error) => {
         if (error.code === 'NotAuthorizedException'){
-          Swal.fire(
-            '  Incorrect Email or Password '
-          )
+          this.errorCode =error.message;
         }
         this.loading = false;
         console.error('Error obtaining access token:', error);

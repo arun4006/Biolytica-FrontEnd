@@ -22,7 +22,7 @@ export class SignUpComponent {
   selectedStateId: any;
   filteredDistricts: any=[];
   myForm: FormGroup;
-  //hobbies:FormArray
+  errorCode:any;
   items: string[] = ['Reading', 'Sport', 'Gym', 'Drawing'];
   selectedItems:string[]=this.items;
   file:string='';
@@ -52,6 +52,8 @@ export class SignUpComponent {
       this.states = event.body;
       console.log(this.states);
     })
+
+    
   }
 
   onFilechange(event: any) {
@@ -67,7 +69,7 @@ export class SignUpComponent {
   
 
   public signUp(): void {
-    // console.log(param,"Clicked")
+    console.log("Clicked")
     this.loading = true;
     this.cognitoService.signUp(this.user)
     .then((res) => {
@@ -77,9 +79,8 @@ export class SignUpComponent {
     }).catch((error) => {
       this.loading = false;
       if (error.code === 'UsernameExistsException') {
-        Swal.fire(
-          'An account with the given email already exists!'
-        )
+        this.errorCode=error.message;
+        console.log(this.errorCode);
       }
     });
   }
