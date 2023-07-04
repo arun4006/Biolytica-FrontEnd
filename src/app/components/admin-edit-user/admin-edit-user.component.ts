@@ -4,6 +4,7 @@ import { Router,ActivatedRoute } from '@angular/router';
 import { CognitoService, IUser } from 'src/app/services/cognito.service';
 import { PayloadService } from 'src/app/services/payload.service';
 import Swal from 'sweetalert2';
+import {AppComponent} from '../../app.component'
 
 @Component({
   selector: 'app-admin-edit-user',
@@ -29,7 +30,8 @@ export class AdminEditUserComponent {
   globalData:any;
   isAdmin:any;
 
-  constructor(private router: Router, private routes:ActivatedRoute, private payload:PayloadService,private formBuilder: FormBuilder) {
+  constructor(private router: Router, private appComponent: AppComponent,
+    private routes:ActivatedRoute, private payload:PayloadService,private formBuilder: FormBuilder) {
 this.loading = false;
 this.user = {} as IUser;
 this.selectedStateId = 0;
@@ -90,10 +92,20 @@ bio:new FormControl('')
     // let allState = statename.states;
     let city = this.myForm.get('district')?.value;
     let profilePic = this.files;
+    var accessToken=localStorage.getItem('AccessToken');
     this.payload.updateUsersByAdmin(this.UserId,name,state,city,hobby,bio,profilePic).subscribe(
       data => {
-        console.log(data,'overall'); 
-      })
+        console.log(name,'updateuser response'); 
+        this.payload.GetSignedUserInfo(accessToken).subscribe((res: any) => { 
+          console.log("data after update",res);
+           
+          localStorage.setItem('userName',res.body.name) 
+          localStorage.setItem('ProfilePic',res.body.profile_pic) 
+          localStorage.setItem('userLocation',res.body.City.city_name); 
+          this.appComponent.getProfileData();
+        });
+      });
+      
       Swal.fire({
         icon: 'success',
         title: 'Updated Succesfully',
