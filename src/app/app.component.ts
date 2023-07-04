@@ -18,6 +18,7 @@ export class AppComponent  {
   userName:any;
   userLocation:any;
   proflePicUrl:any;
+  userId:any;
   constructor(private router: Router,
     private cognitoService: CognitoService,private activatedRoute:ActivatedRoute,private payload:PayloadService) {
       this.isAuthenticated = false;
@@ -69,6 +70,7 @@ export class AppComponent  {
      this.userName = localStorage.getItem('userName');
      this.userLocation = localStorage.getItem('userLocation');
      this.proflePicUrl = localStorage.getItem('ProfilePic');
+     this.userId =  localStorage.getItem('userId');
 }
 
 reserProfileData(){

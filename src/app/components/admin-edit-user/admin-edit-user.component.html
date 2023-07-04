@@ -56,7 +56,7 @@
                   <div class="col">              
                     <mat-form-field appearance="outline" class="w-100">
                       <mat-label>City</mat-label>
-                        <mat-select  [(ngModel)]="user.District"  formControlName="district">
+                        <mat-select  [(ngModel)]="selectedDistrictId"  formControlName="district">
                           <mat-option *ngFor="let city of districts" [value]="city.id">{{city.city_name}}
                         </mat-option>
                       </mat-select>

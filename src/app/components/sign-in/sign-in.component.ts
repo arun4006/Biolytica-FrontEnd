@@ -58,6 +58,7 @@ public signIn(): void {
             localStorage.setItem('userName',res.body.name) 
             localStorage.setItem('ProfilePic',res.body.profile_pic) 
             localStorage.setItem('userLocation',res.body.City.city_name); 
+            localStorage.setItem('isAdmin',res.body.is_admin); 
         
             this.isAdmin=res.body.is_admin;
             this.appComponent.getProfileData();

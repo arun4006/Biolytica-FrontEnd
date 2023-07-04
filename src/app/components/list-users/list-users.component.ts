@@ -36,10 +36,15 @@ export class ListUsersComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(! localStorage.getItem('AccessToken')){
+      alert("You are not authorized");
+      this.router.navigate(['/signIn']);
+    }else {
     this.getUsers(1,'');
     this.cognitoService.isAuthenticated().then((success: boolean) => {
       console.log(success, 'admin-page-comp');
     });
+  }
   }
 
   getUsers(page: number,searchText:string) {

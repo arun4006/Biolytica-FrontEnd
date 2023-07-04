@@ -18,6 +18,7 @@ export class AdminEditUserComponent {
   states: any=[];
   districts: any=[];
   selectedStateId: number;
+  selectedDistrictId: number;
   filteredDistricts: any=[];
  myForm: any;
   items: string[] = ['Reading', 'Sport', 'Gym', 'Drawing'];
@@ -26,12 +27,15 @@ export class AdminEditUserComponent {
   selectedFile:File|null;
   files:any;
   globalData:any;
+  isAdmin:any;
 
   constructor(private router: Router, private routes:ActivatedRoute, private payload:PayloadService,private formBuilder: FormBuilder) {
 this.loading = false;
 this.user = {} as IUser;
 this.selectedStateId = 0;
+this.selectedDistrictId = 0;
 this.selectedFile = null;
+this.isAdmin= localStorage.getItem('isAdmin');
 this.myForm = this.formBuilder.group({
 profilePicture: null,
 email: new FormControl(''),
@@ -50,22 +54,26 @@ bio:new FormControl('')
     this.UserId = this.routes.snapshot.paramMap.get('id'); //this.routes.snapshot.params['Id']; 
     this.payload.editUsersByAdmin(this.UserId).subscribe((data:any)=>{
     this.globalData=data;
-    console.log();
+    console.log("this.globalData",this.globalData);
     
     let statename = this.states.find((s:any) => s.id == this.globalData.body.state_id);
     console.log("statename"+statename);
     this.selectedStateId = parseInt(statename.id)
-    console.log("selectedStateId"+ this.selectedStateId );
+    this.selectedDistrictId = parseInt(this.globalData.body.district_id)
+    console.log("selectedStateId"+ this.selectedStateId);
+  
     
     this.onChangeDistrict()
     this.file=this.globalData.body.profile_pic
     console.log(this.file);
     var gg = this.globalData.body.hobbies.split(',');
+    console.log(this.globalData.body.district_id);
+    console.log(gg);
     this.myForm = this.formBuilder.group({
       email: new FormControl(this.globalData.body.email),
       name: new FormControl(this.globalData.body.name),
       state:new FormControl(this.selectedStateId),
-      district:new FormControl(parseInt(this.globalData.body.district_id)),
+      district:new FormControl(this.selectedDistrictId),
       bio:new FormControl(this.globalData.body.bio),
       hobbies:new FormControl(gg),
       });
@@ -91,8 +99,12 @@ bio:new FormControl('')
         title: 'Updated Succesfully',
         showConfirmButton: false,
         timer: 1000
-      })  
+      }) 
+     if(this.isAdmin){ 
     this.router.navigate(['/users']);
+     }else{
+      this.router.navigate(['/profile']);
+     }
   }
 
   onFilechange(event: any) {
@@ -110,6 +122,7 @@ bio:new FormControl('')
     this.filteredDistricts=[];
     this.payload.getDistricts(this.selectedStateId).subscribe((districts:any) => {
       this.districts = districts.body;
+      console.log("district data",this.districts);  
       if(this.districts.length>0){
         this.filteredDistricts = this.districts.filter(
           (district:any) => district.stateId == this.selectedStateId);

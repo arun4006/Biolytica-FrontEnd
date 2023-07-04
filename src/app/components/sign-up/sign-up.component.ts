@@ -109,12 +109,13 @@ export class SignUpComponent {
         return true;
       })
      this.cognitoService.confirmSignUp(this.user)
-     Swal.fire(
-      'User Created!',
-      'The user has been Created Successfully.',
-      'success'
-    )
     .then(() => {
+      Swal.fire({
+        icon: 'success',
+        title: 'User Registration Succesfully',
+        showConfirmButton: false,
+        timer: 1000
+      }) 
       this.router.navigate(['/signIn']);
     }).catch(() => {
       this.loading = false;
