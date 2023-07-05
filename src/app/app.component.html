@@ -19,7 +19,7 @@
 
     <ul class="nav navbar-nav ms-auto" *ngIf="isAuthenticated">
         <li class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><img class="profile-pic" src={{proflePicUrl}} alt="Img"> {{userName}}</a>
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><img class="profile-pic" src={{proflePicUrl}} alt="Img"></a>
             <div class="dropdown-menu dropdown-menu-end">
                <a class="dropdown-item text-center">{{userName}}</a>
                 <a href="#" class="dropdown-item" routerLink="/editUser/{{userId}}" routerLinkActive="active"><i class="bi bi-pencil-square"></i>  Profile</a>

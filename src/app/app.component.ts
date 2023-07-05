@@ -77,6 +77,7 @@ reserProfileData(){
   localStorage.removeItem('userName');
   localStorage.removeItem('userLocation');
   localStorage.removeItem('ProfilePic');
+  localStorage.removeItem('isAdmin');
   this.userName='';
   this.userLocation='';
   this.proflePicUrl='';

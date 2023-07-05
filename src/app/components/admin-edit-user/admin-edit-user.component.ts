@@ -98,7 +98,7 @@ bio:new FormControl('')
         console.log(name,'updateuser response'); 
         this.payload.GetSignedUserInfo(accessToken).subscribe((res: any) => { 
           console.log("data after update",res);
-           
+          
           localStorage.setItem('userName',res.body.name) 
           localStorage.setItem('ProfilePic',res.body.profile_pic) 
           localStorage.setItem('userLocation',res.body.City.city_name); 
@@ -112,9 +112,13 @@ bio:new FormControl('')
         showConfirmButton: false,
         timer: 1000
       }) 
-     if(this.isAdmin){ 
-    this.router.navigate(['/users']);
+      console.log("isAdmin user"+typeof this.isAdmin);
+      
+     if(this.isAdmin == 'true'){ 
+      console.log("isadmin true"); 
+      this.router.navigate(['/users']);
      }else{
+      console.log("isadmin false");
       this.router.navigate(['/profile']);
      }
   }
